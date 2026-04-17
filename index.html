@@ -54,8 +54,9 @@
 </div>
 
 <script>
+// 請確保您的 GAS 後端確實有對應接收欄位
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
-const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精采世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
+const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精精彩世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
 
 let customerData = { name: '', phone: '' };
 let mainProducts = [];
@@ -165,7 +166,6 @@ async function submitForm() {
   
   document.getElementById('ov-loading').style.display = 'flex';
   
-  // 修正點：確保 a.rPhone 被對應到封包中的 phone
   const payload = {
     customer: customerData.name,
     phone: customerData.phone || "未填",
@@ -174,14 +174,17 @@ async function submitForm() {
       addresses: g.addresses.map(a => {
         let items = [];
         mainProducts.forEach(p => { 
-          if(a.items[p.id]) items.push({ 
-            name: p.name==='自定義'?p.customName:p.name, 
-            qty: a.items[p.id] 
-          }); 
+          if(a.items[p.id]) {
+            items.push({ 
+              name: p.name==='自定義' ? p.customName : p.name, 
+              qty: a.items[p.id] 
+            }); 
+          }
         });
         return { 
           receiver: a.receiver, 
-          phone: a.rPhone, // 這裡確保抓取到收件人電話
+          phone: a.rPhone, // 試算表對應欄位
+          receiver_phone: a.rPhone, // 備用對應欄位
           address: a.address, 
           items: items 
         };
@@ -190,12 +193,19 @@ async function submitForm() {
   };
 
   try {
-    await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+    // 使用 fetch POST 傳送
+    await fetch(GAS_URL, { 
+      method: 'POST', 
+      mode: 'no-cors', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload) 
+    });
+    
     setTimeout(() => {
-      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
-    }, 1000);
+      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><p>若試算表仍無資料，請確認 GAS 後端接收程式。</p><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
+    }, 1500);
   } catch(e) {
-    alert("發送失敗，請截圖聯絡管理員。");
+    alert("網路錯誤，發送失敗。");
     document.getElementById('ov-loading').style.display = 'none';
   }
 }
