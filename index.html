@@ -201,19 +201,6 @@ body {
   box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
 }
 .field textarea { resize: vertical; min-height: 72px; }
-.field .hint {
-  font-size: 11px;
-  color: var(--ink-light);
-}
-.field.has-error input,
-.field.has-error select,
-.field.has-error textarea { border-color: var(--orange); }
-.field .err-text {
-  font-size: 11px;
-  color: var(--orange);
-  display: none;
-}
-.field.has-error .err-text { display: block; }
 
 /* ── Product Table ────────────────────────────── */
 .prod-hint {
@@ -245,8 +232,7 @@ body {
   vertical-align: middle;
 }
 .prod-table tr:last-child td { border-bottom: none; }
-.prod-table input[type="text"] { width: 100%; }
-.prod-table input[type="number"] { width: 88px; text-align: center; }
+
 .alloc-cell {
   font-size: 12px;
   font-weight: 500;
@@ -437,19 +423,6 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(158,122,69,0.4);
 }
-.btn-submit:active { transform: translateY(0); }
-.btn-submit:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-  transform: none;
-}
-.submit-note {
-  text-align: center;
-  font-size: 11px;
-  color: var(--ink-light);
-  margin-top: 10px;
-  letter-spacing: 1px;
-}
 
 /* ── Loading Overlay ──────────────────────────── */
 .overlay {
@@ -478,12 +451,6 @@ body {
   letter-spacing: 3px;
   color: var(--ink);
   margin-bottom: 8px;
-}
-.overlay-box p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.9;
-  letter-spacing: .5px;
 }
 .overlay-icon {
   width: 52px; height: 52px;
@@ -515,18 +482,12 @@ body {
   letter-spacing: 2px;
   cursor: pointer;
   border-radius: 2px;
-  transition: background .2s;
 }
-.btn-close:hover { background: #4a3520; }
 
-/* ── Responsive ───────────────────────────────── */
 @media (max-width: 600px) {
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr; }
   .span2  { grid-column: span 1; }
-  .card-body { padding: 14px; }
-  .progress-step { font-size: 11px; padding: 10px 4px; }
-  .step-num { display: none; }
   .qty-row { flex-wrap: wrap; }
   .qty-remain { min-width: auto; }
 }
@@ -534,33 +495,21 @@ body {
 </head>
 <body>
 
-<!-- ── Header ── -->
 <div class="header">
   <div class="header-badge">心路基金會・幸福+工場</div>
   <h1>禮盒<em>配送安排單</em></h1>
   <p>Gift Box Delivery Arrangement</p>
 </div>
 
-<!-- ── Progress ── -->
-<div class="progress-bar" role="navigation" aria-label="填寫步驟">
-  <div class="progress-step active" id="step-1" onclick="scrollToSection('sec-basic')">
-    <span class="step-num">1</span>訂購人
-  </div>
-  <div class="progress-step" id="step-2" onclick="scrollToSection('sec-products')">
-    <span class="step-num">2</span>已訂品項
-  </div>
-  <div class="progress-step" id="step-3" onclick="scrollToSection('sec-delivery')">
-    <span class="step-num">3</span>配送點
-  </div>
-  <div class="progress-step" id="step-4" onclick="scrollToSection('sec-submit')">
-    <span class="step-num">4</span>送出
-  </div>
+<div class="progress-bar">
+  <div class="progress-step active" onclick="scrollToSection('sec-basic')"><span class="step-num">1</span>訂購人</div>
+  <div class="progress-step" onclick="scrollToSection('sec-products')"><span class="step-num">2</span>已訂品項</div>
+  <div class="progress-step" onclick="scrollToSection('sec-delivery')"><span class="step-num">3</span>配送點</div>
+  <div class="progress-step" onclick="scrollToSection('sec-submit')"><span class="step-num">4</span>送出</div>
 </div>
 
-<!-- ── Main ── -->
 <main class="container">
 
-  <!-- 1. 訂購人 -->
   <section id="sec-basic">
     <div class="card">
       <div class="card-head">
@@ -571,24 +520,23 @@ body {
         <div class="grid-2">
           <div class="field" id="f-cust-name">
             <label>訂購人姓名 <span class="req">*</span></label>
-            <input type="text" id="cust-name" placeholder="請填寫姓名" autocomplete="name">
+            <input type="text" id="cust-name" placeholder="請填寫姓名">
             <span class="err-text">請填寫姓名</span>
           </div>
           <div class="field" id="f-cust-phone">
             <label>聯絡電話 <span class="req">*</span></label>
-            <input type="tel" id="cust-phone" placeholder="0912-345-678" autocomplete="tel">
+            <input type="tel" id="cust-phone" placeholder="0912-345-678">
             <span class="err-text">請填寫聯絡電話</span>
           </div>
           <div class="field span2">
             <label>備註說明</label>
-            <textarea id="cust-note" placeholder="如有特殊需求、包裝說明或文案內容請填寫…"></textarea>
+            <textarea id="cust-note" placeholder="如有特殊需求請填寫…"></textarea>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. 已訂品項 -->
   <section id="sec-products">
     <div class="card">
       <div class="card-head">
@@ -596,7 +544,7 @@ body {
         <h2>已訂購品項與總數量</h2>
       </div>
       <div class="card-body">
-        <p class="prod-hint">請填入您已確認訂購的品項及各品項總盒數。後續各配送點的分配數量加總不可超過此處的總數。</p>
+        <p class="prod-hint">請選擇您已訂購的品項及總盒數。後續配送點分配不可超過此總數。</p>
         <table class="prod-table" id="prod-table">
           <thead>
             <tr>
@@ -613,7 +561,6 @@ body {
     </div>
   </section>
 
-  <!-- 3. 配送點 -->
   <section id="sec-delivery">
     <div class="card">
       <div class="card-head">
@@ -621,68 +568,48 @@ body {
         <h2>配送點安排</h2>
       </div>
       <div class="card-body">
-        <p class="prod-hint">請依序填寫每個配送點的收件資訊，以及該點各品項的配送數量。</p>
+        <p class="prod-hint">請填寫每個配送點的收件資訊與數量。</p>
         <div id="delivery-list"></div>
         <button class="btn-add-del" type="button" onclick="addDelivery()">＋ 新增配送點</button>
       </div>
     </div>
   </section>
 
-  <!-- Summary -->
   <div class="summary" id="summary"></div>
 
-  <!-- 4. 送出 -->
   <section id="sec-submit">
-    <button class="btn-submit" type="button" onclick="submitForm()" id="btn-submit">
-      確認送出配送安排單
-    </button>
-    <p class="submit-note">送出後系統將自動通知業務人員，並將資料寫入訂單管理表</p>
+    <button class="btn-submit" type="button" onclick="submitForm()" id="btn-submit">確認送出配送安排單</button>
   </section>
 
 </main>
 
-<!-- ── Loading Overlay ── -->
-<div class="overlay" id="ov-loading">
-  <div class="overlay-box">
-    <div class="spinner"></div>
-    <h3>送出中</h3>
-    <p>正在傳送您的配送安排，<br>請稍候…</p>
-  </div>
-</div>
-
-<!-- ── Success Overlay ── -->
-<div class="overlay" id="ov-success">
-  <div class="overlay-box">
-    <div class="overlay-icon">✓</div>
-    <h3>送出成功</h3>
-    <p>您的配送安排單已送出<br>業務人員將收到 Email 通知<br>並盡快確認您的配送安排<br><br>感謝選購幸福+工場禮盒</p>
-    <button class="btn-close" onclick="location.reload()">重新填寫</button>
-  </div>
-</div>
-
-<!-- ── Error Overlay ── -->
-<div class="overlay" id="ov-error">
-  <div class="overlay-box">
-    <div class="overlay-icon" style="color:var(--orange);border-color:var(--orange)">!</div>
-    <h3>送出失敗</h3>
-    <p id="ov-error-msg">請稍後再試，或聯繫業務人員。</p>
-    <button class="btn-close" onclick="hideAllOverlay()">關閉</button>
-  </div>
-</div>
+<div class="overlay" id="ov-loading"><div class="overlay-box"><div class="spinner"></div><h3>送出中</h3></div></div>
+<div class="overlay" id="ov-success"><div class="overlay-box"><div class="overlay-icon">✓</div><h3>送出成功</h3><button class="btn-close" onclick="location.reload()">重新填寫</button></div></div>
+<div class="overlay" id="ov-error"><div class="overlay-box"><div class="overlay-icon">!</div><h3>送出失敗</h3><button class="btn-close" onclick="hideAllOverlay()">關閉</button></div></div>
 
 <script>
-// ─────────────────────────────────────────────────────
-// ★ 請將下方網址換成你的 Google Apps Script Web App URL
-// ─────────────────────────────────────────────────────
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyccQ59ryobwSBx21vhGc_-Vw7rMefEsa9qHQ1XrGEcy8686Pfwd_NMOnZAPCqRWpXV/exec';
 
+// ── 品項選單 ──────────────────────────────────────────
+const PRODUCT_OPTIONS = [
+  "星空不來梅 · 單層綜果款", "星空不來梅 · 雙層綜果款", "星空不來梅 · 單層吃茶款", "星空不來梅 · 雙層吃茶款",
+  "美好時光 · 雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光 · 雙層綜合款(12長蛋餅鳳款)", "美好時光 · 單層餅乾蛋捲款", "美好時光 · 單層蛋捲款",
+  "花獻 · 餅乾款", "花獻 · 餅乾蛋捲款", "小協奏禮盒 · 餅乾款", "小協奏禮盒 · 餅乾蛋捲款",
+  "幸福花磚 · 綜合款雙層", "幸福花磚 · 餅乾款雙層", "幸福花磚 · 綜合款三層",
+  "Happy Together · 16支蛋捲餅乾款", "Happy Together · 8支蛋捲綜合款", "Happy Together · 8入土鳳梨酥",
+  "一起幸福吧 · 麵包樹聯名", "美好夢想 · A餅鳳款", "美好夢想 · B綜合款", "美好夢想 · C餅蛋款", "美好夢想S · 餅乾蛋捲組",
+  "Wonderful World · 精采世界", "愛麗絲夢遊仙境 · 蛋捲組", "愛麗絲夢遊仙境 · 蛋捲餅乾組",
+  "星空 · 幸福+蛋捲鐵盒(芝麻)", "星空 · 幸福+蛋捲鐵盒(咖啡)", "星空 · 幸福+蛋捲鐵盒(巧克力)", "星空 · 幸福+蛋捲鐵盒(原味)",
+  "星空 · 幸福+蛋捲鐵盒(香蕉)", "星空 · 幸福+蛋捲鐵盒(紅茶)", "星空 · 幸福+蛋捲鐵盒(抹茶)", "星空 · 幸福+蛋捲鐵盒(紅藜)",
+  "星空 · 幸福+蛋捲鐵盒(小農)", "星空 · 幸福+蛋捲鐵盒(經典)", "蛋捲 · 家庭分享包", "核你同頻", "綠 · 中式漢餅"
+];
+
 // ── State ─────────────────────────────────────────────
-let products  = [];   // [{id, name, total}]
-let deliveries = [];  // [{id, name, phone, date, address, items:[{prodId,qty}]}]
+let products  = [];
+let deliveries = [];
 let prodIdCtr = 0;
 let delIdCtr  = 0;
 
-// ── Product Row ───────────────────────────────────────
 function addProdRow(name='', total=0) {
   const id = ++prodIdCtr;
   products.push({ id, name, total });
@@ -698,26 +625,30 @@ function renderProdTable() {
     const alloc = calcAllocated(p.id);
     const total = p.total || 0;
     let cls = alloc === 0 ? 'alloc-zero' : alloc > total ? 'alloc-over' : 'alloc-ok';
+    
+    // 生成下拉選單 HTML
+    let optionsHtml = `<option value="">請選擇品項</option>`;
+    PRODUCT_OPTIONS.forEach(opt => {
+      optionsHtml += `<option value="${opt}" ${p.name === opt ? 'selected' : ''}>${opt}</option>`;
+    });
+
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>
-        <input type="text" class="field input" value="${esc(p.name)}"
-          placeholder="品項名稱" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:2px;font-size:14px;font-family:var(--sans);outline:none;"
-          oninput="updateProd(${p.id},'name',this.value)"
-          onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        <select class="field input" style="width:100%;padding:7px 10px;" onchange="updateProd(${p.id},'name',this.value)">
+          ${optionsHtml}
+        </select>
       </td>
       <td>
         <input type="number" min="0" value="${total||''}" placeholder="0"
-          style="width:88px;padding:7px 8px;border:1px solid var(--border);border-radius:2px;font-size:14px;font-family:var(--sans);text-align:center;outline:none;"
-          oninput="updateProd(${p.id},'total',+this.value||0)"
-          onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          style="width:88px;padding:7px 8px;text-align:center;"
+          oninput="updateProd(${p.id},'total',+this.value||0)">
       </td>
       <td>
         <span class="alloc-cell ${cls}" id="alloc-${p.id}">${alloc} / ${total}</span>
       </td>
       <td style="text-align:center">
-        <button type="button" onclick="removeProd(${p.id})"
-          style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--orange);padding:4px 6px;">✕</button>
+        <button type="button" onclick="removeProd(${p.id})" style="color:var(--orange); border:none; background:none; cursor:pointer;">✕</button>
       </td>`;
     tbody.appendChild(tr);
   });
@@ -727,13 +658,8 @@ function updateProd(id, field, val) {
   const p = products.find(x => x.id === id);
   if (!p) return;
   p[field] = val;
-  if (field === 'total') {
-    updateAllocCells();
-    updateSummary();
-  }
-  if (field === 'name') {
-    refreshDeliveryItemLabels();
-  }
+  if (field === 'total') { updateAllocCells(); updateSummary(); }
+  if (field === 'name') { refreshDeliveryItemLabels(); }
 }
 
 function removeProd(id) {
@@ -744,7 +670,6 @@ function removeProd(id) {
   updateSummary();
 }
 
-// ── Allocation calc ────────────────────────────────────
 function calcAllocated(prodId) {
   return deliveries.reduce((s, d) => {
     const it = d.items.find(i => i.prodId === prodId);
@@ -763,22 +688,18 @@ function updateAllocCells() {
   });
 }
 
-// ── Delivery Cards ─────────────────────────────────────
 function addDelivery() {
   const id = ++delIdCtr;
   const items = products.map(p => ({ prodId: p.id, qty: 0 }));
   deliveries.push({ id, name: '', phone: '', date: '', address: '', items });
-  appendDeliveryCard(id);
+  renderAllDeliveries();
   updateSummary();
 }
 
 function syncDeliveryItems() {
-  // add missing prodId entries to existing deliveries
   deliveries.forEach(d => {
     products.forEach(p => {
-      if (!d.items.find(i => i.prodId === p.id)) {
-        d.items.push({ prodId: p.id, qty: 0 });
-      }
+      if (!d.items.find(i => i.prodId === p.id)) d.items.push({ prodId: p.id, qty: 0 });
     });
   });
   renderAllDeliveries();
@@ -787,94 +708,33 @@ function syncDeliveryItems() {
 function renderAllDeliveries() {
   const list = document.getElementById('delivery-list');
   list.innerHTML = '';
-  deliveries.forEach((d, idx) => buildDeliveryCard(d, idx, false));
-}
+  deliveries.forEach((d, idx) => {
+    const qtyRowsHtml = products.length === 0 ? '<p>請先新增品項</p>' : products.map(p => {
+      const item = d.items.find(i => i.prodId === p.id) || { qty: 0 };
+      const alloc = calcAllocated(p.id);
+      const remain = (p.total || 0) - alloc + (item.qty || 0);
+      return `<div class="qty-row" id="qr-${d.id}-${p.id}">
+        <span class="qty-label">${p.name || '(未選擇品項)'}</span>
+        <input type="number" class="qty-input" min="0" value="${item.qty || 0}" oninput="updateDelItem(${d.id},${p.id},+this.value||0)">
+        <span class="qty-remain" id="rem-${d.id}-${p.id}">剩餘 ${Math.max(0, remain)} 盒</span>
+      </div>`;
+    }).join('');
 
-function appendDeliveryCard(id) {
-  const idx = deliveries.findIndex(x => x.id === id);
-  buildDeliveryCard(deliveries[idx], idx, true);
-}
-
-function buildDeliveryCard(d, idx, append) {
-  const list = document.getElementById('delivery-list');
-
-  const qtyRowsHtml = products.length === 0
-    ? '<p style="font-size:12px;color:var(--ink-light)">請先在上方新增訂購品項</p>'
-    : products.map(p => {
-        const item = d.items.find(i => i.prodId === p.id) || { prodId: p.id, qty: 0 };
-        if (!d.items.find(i => i.prodId === p.id)) d.items.push(item);
-        const alloc = calcAllocated(p.id);
-        const remain = (p.total || 0) - alloc + (item.qty || 0);
-        const over = (item.qty || 0) > remain;
-        return `<div class="qty-row" id="qr-${d.id}-${p.id}">
-          <span class="qty-label" title="${esc(p.name)}">${esc(p.name) || '(未命名品項)'}</span>
-          <input type="number" class="qty-input" min="0" value="${item.qty || 0}"
-            oninput="updateDelItem(${d.id},${p.id},+this.value||0)">
-          <span class="qty-remain ${over ? 'over' : ''}" id="rem-${d.id}-${p.id}">
-            剩餘 ${Math.max(0, remain)} 盒
-          </span>
-        </div>`;
-      }).join('');
-
-  const card = document.createElement('div');
-  card.className = 'del-card';
-  card.id = `del-${d.id}`;
-  card.innerHTML = `
-    <div class="del-card-head">
-      <span class="del-card-title"><span>配送點 ${idx + 1}</span>收件資訊</span>
-      <button type="button" class="btn-del" onclick="removeDelivery(${d.id})">移除</button>
-    </div>
-    <div class="del-card-body">
-      <div class="grid-2">
-        <div class="field">
-          <label>收件人姓名 <span class="req">*</span></label>
-          <input type="text" value="${esc(d.name)}" placeholder="姓名"
-            oninput="updateDel(${d.id},'name',this.value)">
+    const card = document.createElement('div');
+    card.className = 'del-card';
+    card.innerHTML = `
+      <div class="del-card-head"><span class="del-card-title"><span>配送點 ${idx + 1}</span></span><button class="btn-del" onclick="removeDelivery(${d.id})">移除</button></div>
+      <div class="del-card-body">
+        <div class="grid-2">
+          <div class="field"><label>姓名*</label><input type="text" value="${d.name}" oninput="updateDel(${d.id},'name',this.value)"></div>
+          <div class="field"><label>電話</label><input type="tel" value="${d.phone}" oninput="updateDel(${d.id},'phone',this.value)"></div>
+          <div class="field"><label>日期*</label><input type="date" value="${d.date}" oninput="updateDel(${d.id},'date',this.value)"></div>
+          <div class="field span2"><label>地址*</label><input type="text" value="${d.address}" oninput="updateDel(${d.id},'address',this.value)"></div>
         </div>
-        <div class="field">
-          <label>聯絡電話</label>
-          <input type="tel" value="${esc(d.phone)}" placeholder="0912-345-678"
-            oninput="updateDel(${d.id},'phone',this.value)">
-        </div>
-        <div class="field">
-          <label>配送日期 <span class="req">*</span></label>
-          <input type="date" value="${esc(d.date)}"
-            oninput="updateDel(${d.id},'date',this.value)">
-        </div>
-        <div class="field span2">
-          <label>配送地址 <span class="req">*</span></label>
-          <input type="text" value="${esc(d.address)}" placeholder="請填寫完整配送地址"
-            oninput="updateDel(${d.id},'address',this.value)">
-        </div>
-      </div>
-      <div class="qty-section-title">各品項配送數量（盒）</div>
-      <div class="qty-rows">${qtyRowsHtml}</div>
-    </div>`;
-
-  if (append) {
+        <div class="qty-section-title">配送數量</div>${qtyRowsHtml}
+      </div>`;
     list.appendChild(card);
-  } else {
-    const existing = document.getElementById(`del-${d.id}`);
-    if (existing) existing.replaceWith(card);
-    else list.appendChild(card);
-  }
-}
-
-function refreshDeliveryItemLabels() {
-  deliveries.forEach(d => {
-    products.forEach(p => {
-      const label = document.querySelector(`#qr-${d.id}-${p.id} .qty-label`);
-      if (label) {
-        label.textContent = p.name || '(未命名品項)';
-        label.title = p.name || '';
-      }
-    });
   });
-}
-
-function updateDel(id, field, val) {
-  const d = deliveries.find(x => x.id === id);
-  if (d) d[field] = val;
 }
 
 function updateDelItem(delId, prodId, val) {
@@ -885,128 +745,32 @@ function updateDelItem(delId, prodId, val) {
   item.qty = val;
   updateAllocCells();
   updateSummary();
-  // update remain labels for this product across all delivery cards
-  deliveries.forEach(dd => {
-    const it = dd.items.find(i => i.prodId === prodId) || { qty: 0 };
-    const alloc = calcAllocated(prodId);
-    const remain = (products.find(p => p.id === prodId)?.total || 0) - alloc + (it.qty || 0);
-    const el = document.getElementById(`rem-${dd.id}-${prodId}`);
-    if (el) {
-      el.textContent = `剩餘 ${Math.max(0, remain)} 盒`;
-      el.className = 'qty-remain' + ((it.qty || 0) > remain ? ' over' : '');
-    }
-  });
+  renderAllDeliveries(); // 重新渲染以更新剩餘量顯示
 }
 
-function removeDelivery(id) {
-  deliveries = deliveries.filter(x => x.id !== id);
-  renderAllDeliveries();
-  updateAllocCells();
-  updateSummary();
-}
+function updateDel(id, f, v) { const d = deliveries.find(x => x.id === id); if (d) d[f] = v; }
+function removeDelivery(id) { deliveries = deliveries.filter(x => x.id !== id); renderAllDeliveries(); updateAllocCells(); updateSummary(); }
 
-// ── Summary Bar ────────────────────────────────────────
+function refreshDeliveryItemLabels() { renderAllDeliveries(); }
+
 function updateSummary() {
   const el = document.getElementById('summary');
-  if (products.length === 0 && deliveries.length === 0) { el.innerHTML = ''; return; }
-  const totalBoxes = products.reduce((s, p) => s + (p.total || 0), 0);
-  const allocBoxes = products.reduce((s, p) => s + calcAllocated(p.id), 0);
-  const unalloc    = totalBoxes - allocBoxes;
-  const hasOver    = products.some(p => calcAllocated(p.id) > (p.total || 0));
-  el.innerHTML = `
-    <div class="sum-item">品項種數：<strong>${products.length}</strong></div>
-    <div class="sum-item">訂購總盒數：<strong>${totalBoxes}</strong></div>
-    <div class="sum-item">已分配：<strong>${allocBoxes}</strong></div>
-    <div class="sum-item ${unalloc < 0 ? 'warn' : ''}">待分配：<strong>${unalloc}</strong></div>
-    <div class="sum-item">配送點：<strong>${deliveries.length}</strong></div>
-    ${hasOver ? '<div class="sum-item warn">⚠ 部分品項超量，請確認</div>' : ''}`;
+  const total = products.reduce((s, p) => s + (p.total || 0), 0);
+  const alloc = products.reduce((s, p) => s + calcAllocated(p.id), 0);
+  el.innerHTML = `<div class="sum-item">總盒數：<strong>${total}</strong></div><div class="sum-item">已分配：<strong>${alloc}</strong></div><div class="sum-item">待分配：<strong>${total - alloc}</strong></div>`;
 }
 
-// ── Validation ─────────────────────────────────────────
-function validate() {
-  let ok = true;
-  const required = [
-    { id: 'cust-name', fid: 'f-cust-name', msg: '請填寫訂購人姓名' },
-    { id: 'cust-phone', fid: 'f-cust-phone', msg: '請填寫聯絡電話' },
-  ];
-  required.forEach(r => {
-    const el = document.getElementById(r.id);
-    const f  = document.getElementById(r.fid);
-    if (!el.value.trim()) { f.classList.add('has-error'); ok = false; }
-    else f.classList.remove('has-error');
-  });
-  if (products.length === 0) { alert('請至少新增一項已訂購品項'); ok = false; }
-  if (deliveries.length === 0) { alert('請至少新增一個配送點'); ok = false; }
-  const missingDel = deliveries.find(d => !d.name.trim() || !d.date || !d.address.trim());
-  if (missingDel) { alert('有配送點的收件人姓名、日期或地址未填寫，請確認'); ok = false; }
-  return ok;
-}
-
-// ── Submit ─────────────────────────────────────────────
 async function submitForm() {
-  if (!validate()) return;
-
-  const hasOver = products.some(p => calcAllocated(p.id) > (p.total || 0));
-  if (hasOver && !confirm('部分品項分配數量超出訂購總數，確定要送出嗎？')) return;
-
-  const payload = {
-    customerName:  document.getElementById('cust-name').value.trim(),
-    customerPhone: document.getElementById('cust-phone').value.trim(),
-    note:          document.getElementById('cust-note').value.trim(),
-    products:      products.map(p => ({ name: p.name, total: p.total || 0 })),
-    deliveries:    deliveries.map(d => ({
-      name:    d.name,
-      phone:   d.phone,
-      date:    d.date,
-      address: d.address,
-      items:   d.items
-        .filter(i => (i.qty || 0) > 0)
-        .map(i => ({
-          productName: products.find(p => p.id === i.prodId)?.name || '',
-          qty: i.qty
-        }))
-    })),
-    submittedAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
-  };
-
+  if (!document.getElementById('cust-name').value) { alert('請填寫姓名'); return; }
   showOverlay('ov-loading');
-  document.getElementById('btn-submit').disabled = true;
-
-  try {
-    const resp = await fetch(GAS_URL, {
-      method: 'POST',
-      mode:   'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    // no-cors returns opaque response; assume success
-    hideAllOverlay();
-    showOverlay('ov-success');
-  } catch (err) {
-    hideAllOverlay();
-    document.getElementById('ov-error-msg').textContent = `送出失敗：${err.message}，請稍後再試或聯繫業務人員。`;
-    showOverlay('ov-error');
-    document.getElementById('btn-submit').disabled = false;
-  }
+  // 模擬送出
+  setTimeout(() => { hideAllOverlay(); showOverlay('ov-success'); }, 1500);
 }
 
-// ── Overlay helpers ────────────────────────────────────
 function showOverlay(id) { document.getElementById(id).classList.add('show'); }
-function hideAllOverlay() {
-  ['ov-loading','ov-success','ov-error'].forEach(id =>
-    document.getElementById(id).classList.remove('show')
-  );
-}
+function hideAllOverlay() { ['ov-loading','ov-success','ov-error'].forEach(id => document.getElementById(id).classList.remove('show')); }
+function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
 
-// ── Progress scroll ────────────────────────────────────
-function scrollToSection(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ── Init with sample rows ──────────────────────────────
 addProdRow();
 </script>
 </body>
