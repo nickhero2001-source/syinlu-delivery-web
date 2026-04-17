@@ -589,7 +589,7 @@ body {
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
-
+                 
 // ── 品項選單 ──────────────────────────────────────────
 const PRODUCT_OPTIONS = [
   "星空不來梅 · 單層綜果款", "星空不來梅 · 雙層綜果款", "星空不來梅 · 單層吃茶款", "星空不來梅 · 雙層吃茶款",
@@ -759,10 +759,45 @@ function updateSummary() {
   const alloc = products.reduce((s, p) => s + calcAllocated(p.id), 0);
   el.innerHTML = `<div class="sum-item">總盒數：<strong>${total}</strong></div><div class="sum-item">已分配：<strong>${alloc}</strong></div><div class="sum-item">待分配：<strong>${total - alloc}</strong></div>`;
 }
+// --- 補回遺失的驗證函數 ---
+function validate() {
+  let ok = true;
+  // 定義必填欄位
+  const required = [
+    { id: 'cust-name', fid: 'f-cust-name' },
+    { id: 'cust-phone', fid: 'f-cust-phone' },
+  ];
+  
+  required.forEach(r => {
+    const el = document.getElementById(r.id);
+    const f  = document.getElementById(r.fid);
+    if (!el || !el.value.trim()) { 
+      if (f) f.classList.add('has-error'); 
+      ok = false; 
+    } else {
+      if (f) f.classList.remove('has-error');
+    }
+  });
 
+  // 檢查品項與配送點
+  if (products.length === 0) { alert('請至少新增一項已訂購品項'); ok = false; }
+  if (deliveries.length === 0) { alert('請至少新增一個配送點'); ok = false; }
+  
+  // 檢查配送點細節
+  const missingDel = deliveries.find(d => !d.name.trim() || !d.date || !d.address.trim());
+  if (missingDel) { alert('有配送點的收件人姓名、日期或地址未填寫，請確認'); ok = false; }
+  
+  return ok;
+}
 async function submitForm() {
-  if (!validate()) return; // 先檢查必填欄位
-
+  if (typeof validate !== 'function') {
+    alert('系統錯誤：找不到驗證函數');
+    return;
+  }
+  if (!validate()) return; // 如果檢查不通過，就停止執行
+  
+  // 後續的打包與發送代碼...
+}
   // 【這裡就是前端資料打包】
   const payload = {
     customerName:  document.getElementById('cust-name').value.trim(),
