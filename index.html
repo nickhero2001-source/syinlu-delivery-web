@@ -33,8 +33,8 @@
 <div class="wrapper">
   <div class="main-card">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
-      <div><small>訂購人姓名 *</small><input type="text" id="cust-name" oninput="saveAndRefresh(false)"></div>
-      <div><small>聯絡電話</small><input type="tel" id="cust-phone"></div>
+      <div><small>訂購人姓名 *</small><input type="text" id="cust-name" oninput="syncCustData()"></div>
+      <div><small>聯絡電話</small><input type="tel" id="cust-phone" oninput="syncCustData()"></div>
     </div>
     <div id="main-prod-list"></div>
     <button class="btn-ghost" onclick="addMainProd()">＋ 新增產品品項</button>
@@ -57,14 +57,14 @@
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
 const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精采世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
 
+let customerData = { name: '', phone: '' };
 let mainProducts = [];
 let dateGroups = [];
 
-// 核心修正：避免重新渲染時遺失資料
-function saveAndRefresh(shouldRender = true) {
-  // 即使不 render，也要確保 updateSummary 隨時更新
+function syncCustData() {
+  customerData.name = document.getElementById('cust-name').value;
+  customerData.phone = document.getElementById('cust-phone').value;
   updateSummary();
-  if(shouldRender) render();
 }
 
 function addMainProd() {
@@ -89,13 +89,13 @@ function render() {
   mList.innerHTML = mainProducts.map(p => `
     <div style="background:#fdfbf8; border:1px solid #eee; padding:10px; border-radius:8px; margin-bottom:10px;">
       <div style="display:flex; gap:5px; align-items:center;">
-        <select style="flex:1; margin-bottom:0;" onchange="let x=mainProducts.find(m=>m.id===${p.id}); x.name=this.value; render();">
+        <select style="flex:1; margin-bottom:0;" onchange="mainProducts.find(m=>m.id===${p.id}).name=this.value; render();">
           ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
         </select>
-        <input type="number" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="let x=mainProducts.find(m=>m.id===${p.id}); x.totalQty=this.value.replace(/[^0-9]/g,''); updateSummary();">
+        <input type="number" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="mainProducts.find(m=>m.id===${p.id}).totalQty=this.value.replace(/[^0-9]/g,''); updateSummary();">
         <button onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id}); render();" style="border:none;background:none;color:red;font-size:18px;">✕</button>
       </div>
-      ${p.name==='自定義'?`<input type="text" placeholder="輸入產品名" style="margin-top:5px;" value="${p.customName}" oninput="let x=mainProducts.find(m=>m.id===${p.id}); x.customName=this.value; updateSummary();">`:''}
+      ${p.name==='自定義'?`<input type="text" placeholder="輸入產品名" style="margin-top:5px;" value="${p.customName}" oninput="mainProducts.find(m=>m.id===${p.id}).customName=this.value; updateSummary();">`:''}
     </div>
   `).join('');
 
@@ -104,22 +104,22 @@ function render() {
   gContainer.innerHTML = dateGroups.map(g => `
     <div class="date-group">
       <div class="date-head">
-        <input type="date" value="${g.date}" onchange="let targetG=dateGroups.find(x=>x.id===${g.id}); targetG.date=this.value; updateSummary();" style="width:160px; margin:0;">
+        <input type="date" value="${g.date}" onchange="dateGroups.find(x=>x.id===${g.id}).date=this.value; updateSummary();" style="width:160px; margin:0;">
         <button onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id}); render();" style="border:none;background:none;color:red;">移除日期</button>
       </div>
       ${g.addresses.map((a, idx) => `
         <div class="place-card">
-          <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><b>地點 ${idx+1}</b> <button onclick="let targetG=dateGroups.find(x=>x.id===${g.id}); targetG.addresses=targetG.addresses.filter(x=>x.id!==${a.id}); render();" style="border:none;background:none;color:red;font-size:12px;">移除</button></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><b>地點 ${idx+1}</b> <button onclick="let tg=dateGroups.find(x=>x.id===${g.id}); tg.addresses=tg.addresses.filter(x=>x.id!==${a.id}); render();" style="border:none;background:none;color:red;font-size:12px;">移除</button></div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="let x=dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}); x.receiver=this.value; updateSummary();">
-            <input type="tel" placeholder="電話" value="${a.rPhone}" oninput="let x=dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}); x.rPhone=this.value; updateSummary();">
+            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).receiver=this.value; updateSummary();">
+            <input type="tel" placeholder="電話" value="${a.rPhone}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).rPhone=this.value; updateSummary();">
           </div>
-          <input type="text" placeholder="配送地址" value="${a.address}" oninput="let x=dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}); x.address=this.value; updateSummary();">
+          <input type="text" placeholder="配送地址" value="${a.address}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).address=this.value; updateSummary();">
           <div style="margin-top:5px; border-top:1px solid #eee; padding-top:10px;">
             ${mainProducts.map(p => `
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
                 <span style="font-size:12px; color:#666;">${p.name==='自定義'? (p.customName||'自定義') : p.name}</span>
-                <input type="number" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="let x=dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}); x.items[${p.id}]=this.value.replace(/[^0-9]/g,''); updateSummary();">
+                <input type="number" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).items[${p.id}]=this.value.replace(/[^0-9]/g,''); updateSummary();">
               </div>
             `).join('')}
           </div>
@@ -142,10 +142,11 @@ function updateSummary() {
     dateGroups.forEach(g => g.addresses.forEach(a => { current += parseInt(a.items[p.id]) || 0; }));
     const ok = (target > 0 && target === current);
     if (!ok) allMatched = false;
-    return `<span class="pill ${ok ? 'pill-ok' : 'pill-wait'}">${(p.name==='自定義'?p.customName:p.name)||'品項'}: ${current}/${target}</span>`;
+    const pName = p.name==='自定義' ? (p.customName || '品項') : p.name;
+    return `<span class="pill ${ok ? 'pill-ok' : 'pill-wait'}">${pName}: ${current}/${target}</span>`;
   }).join('');
 
-  const nameOk = document.getElementById('cust-name').value.trim() !== "";
+  const nameOk = customerData.name.trim() !== "";
   const dateOk = dateGroups.length > 0 && dateGroups.every(g => g.date !== "");
   const addrOk = dateGroups.every(g => g.addresses.every(a => a.receiver.trim() !== "" && a.address.trim() !== ""));
 
@@ -166,8 +167,8 @@ async function submitForm() {
   
   document.getElementById('ov-loading').style.display = 'flex';
   const payload = {
-    customer: document.getElementById('cust-name').value,
-    phone: document.getElementById('cust-phone').value || "未填",
+    customer: customerData.name,
+    phone: customerData.phone || "未填",
     dateGroups: dateGroups.map(g => ({
       date: g.date,
       addresses: g.addresses.map(a => {
@@ -181,7 +182,7 @@ async function submitForm() {
   try {
     await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
     setTimeout(() => {
-      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;">回首頁</button>`;
+      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
     }, 1000);
   } catch(e) {
     alert("發送失敗，請截圖聯絡管理員。");
@@ -189,7 +190,6 @@ async function submitForm() {
   }
 }
 
-// 啟動
 addMainProd();
 </script>
 </body>
