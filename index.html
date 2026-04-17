@@ -13,45 +13,40 @@
   }
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 240px; }
-  .header { background: var(--primary); padding: 60px 20px; text-align: center; color: #fff; position: relative; }
+  .header { background: var(--primary); padding: 40px 20px; text-align: center; color: #fff; position: relative; }
   .header::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: var(--accent); }
-  .header-label { font-family: 'Noto Serif TC', serif; font-size: 13px; letter-spacing: 5px; color: var(--accent); margin-bottom: 12px; display: block; }
-  .header h1 { font-family: 'Noto Serif TC', serif; font-size: 32px; margin: 0; letter-spacing: 2px; }
+  .header h1 { font-family: 'Noto Serif TC', serif; font-size: 28px; margin: 0; letter-spacing: 2px; }
   .wrapper { max-width: 800px; margin: 0 auto; padding: 0 15px; }
-  .section-title { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; color: var(--accent-dark); margin: 50px 0 20px; display: flex; align-items: center; gap: 15px; }
-  .section-title i { font-style: normal; font-size: 14px; background: var(--accent); color: #fff; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-  .main-card { background: var(--card-bg); border-radius: 20px; box-shadow: 0 10px 40px rgba(44,36,22,0.06); border: 1px solid var(--border); overflow: hidden; margin-bottom: 30px; }
-  .card-padding { padding: 30px; }
-  .total-control { background: #fdfbf8; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 15px; }
-  .prod-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 15px; background: #fdfbf8; padding: 10px; border-radius: 12px; border: 1px solid #eee; }
-  .prod-row select { flex: 1; min-width: 180px; }
-  .prod-row .qty-group { display: flex; align-items: center; gap: 10px; }
-  @media (max-width: 480px) { .prod-row select { flex-basis: 100%; } .prod-row .qty-group { width: 100%; justify-content: flex-end; } }
-  .date-group { background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); margin-bottom: 40px; box-shadow: 0 15px 50px rgba(0,0,0,0.03); }
-  .date-head { background: #fcfaf7; padding: 20px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .place-card { margin: 20px; padding: 25px; background: #fff; border: 1px solid var(--border); border-radius: 15px; border-left: 6px solid var(--accent); }
-  .input-group { margin-bottom: 20px; }
-  .input-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--text-light); }
-  input, select { width: 100%; padding: 14px 18px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; color: var(--text); }
-  .qty-field { width: 90px !important; text-align: center; font-weight: 700; color: var(--primary); border: 2px solid var(--accent) !important; }
-  .btn-ghost { background: transparent; border: 2px dashed var(--accent); color: var(--accent-dark); padding: 15px; width: 100%; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-  .btn-del { color: var(--orange); border: none; background: none; font-weight: 700; cursor: pointer; font-size: 13px; }
-  .footer-summary { background: var(--primary); padding: 25px 20px 40px; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; border-top: 5px solid var(--accent); }
-  .status-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 25px; }
-  .pill { padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; }
-  .pill-wait { background: rgba(212,98,42,0.1); color: #ff9d76; border: 1px solid rgba(212,98,42,0.4); }
-  .pill-ok { background: rgba(45,138,84,0.1); color: #57d48d; border: 1px solid rgba(45,138,84,0.4); }
-  .btn-primary { width: 100%; max-width: 480px; padding: 22px; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; border: none; border-radius: 100px; font-size: 19px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; letter-spacing: 6px; }
-  .btn-primary:disabled { background: #555; color: #888; cursor: not-allowed; opacity: 0.6; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .section-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--accent-dark); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+  .main-card { background: var(--card-bg); border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 20px; }
+  .card-padding { padding: 20px; }
+  .total-control { background: #fdfbf8; border: 1px solid var(--border); border-radius: 10px; padding: 15px; margin-top: 10px; }
+  .prod-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
+  .prod-row select { flex: 1; min-width: 150px; }
+  .date-group { background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); margin-bottom: 30px; }
+  .date-head { background: #fcfaf7; padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 15px 15px 0 0; }
+  .place-card { margin: 15px; padding: 15px; background: #fff; border: 1px solid var(--border); border-radius: 10px; border-left: 5px solid var(--accent); }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; color: var(--text-light); }
+  input, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; }
+  .qty-field { width: 80px !important; text-align: center; font-weight: 700; border: 2px solid var(--accent) !important; }
+  .btn-ghost { background: transparent; border: 2px dashed var(--accent); color: var(--accent-dark); padding: 12px; width: 100%; border-radius: 10px; font-weight: 700; cursor: pointer; }
+  .btn-del { color: var(--orange); border: none; background: none; cursor: pointer; font-size: 13px; }
+  .footer-summary { background: var(--primary); padding: 20px; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; border-top: 4px solid var(--accent); }
+  .status-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
+  .pill { padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+  .pill-ok { background: #2d8a54; }
+  .pill-wait { background: #d4622a; }
+  .btn-primary { width: 100%; max-width: 400px; padding: 18px; background: var(--accent); color: #fff; border: none; border-radius: 50px; font-size: 18px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; }
+  .btn-primary:disabled { background: #555; opacity: 0.7; cursor: not-allowed; font-size: 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body>
+<body onclick="updateSummary()">
 
 <header class="header">
-  <span class="header-label">SYIN-LU SOCIAL WELFARE FOUNDATION</span>
-  <h1>幸福+工場<em>配送安排單</em></h1>
+  <h1>幸福+工場配送安排單</h1>
 </header>
 
 <div class="wrapper">
@@ -59,24 +54,23 @@
   <div class="main-card">
     <div class="card-padding">
       <div class="grid-2">
-        <div class="input-group"><label>訂購人姓名 *</label><input type="text" id="cust-name" oninput="updateSummary()"></div>
+        <div class="input-group"><label>訂購人姓名 *</label><input type="text" id="cust-name" placeholder="必填" oninput="updateSummary()"></div>
         <div class="input-group"><label>聯絡電話</label><input type="tel" id="cust-phone"></div>
       </div>
       <div class="total-control">
-        <label style="font-weight:700; margin-bottom:15px; display:block; color:var(--primary);">第一步：設定訂單總量</label>
         <div id="main-prod-list"></div>
         <button class="btn-ghost" onclick="addMainProd()">＋ 新增訂購品項</button>
       </div>
     </div>
   </div>
-  <div class="section-title"><i>2</i> 配送計畫規劃</div>
+  <div class="section-title"><i>2</i> 配送計畫</div>
   <div id="date-group-container"></div>
-  <button class="btn-ghost" style="background:var(--primary); color:var(--accent); border:none; padding:20px; font-size:17px; margin-bottom:60px;" onclick="addDateGroup()">＋ 新增出貨日期</button>
+  <button class="btn-ghost" style="background:var(--primary); color:var(--accent); border:none; margin-bottom:80px;" onclick="addDateGroup()">＋ 新增出貨日期</button>
 </div>
 
 <div class="footer-summary">
   <div class="status-pills" id="summary-pills"></div>
-  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫必要資訊</button>
+  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫資訊</button>
 </div>
 
 <div id="ov-loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; color:#fff; align-items:center; justify-content:center;">
@@ -90,21 +84,11 @@ const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．�
 let mainProducts = [];
 let dateGroups = [];
 
-// 強制正整數的輔助函式
-function forceInt(input) {
-  // 過濾掉小數點、負號等非數字字元
-  input.value = input.value.replace(/[^0-9]/g, '');
-}
+function forceInt(input) { input.value = input.value.replace(/[^0-9]/g, ''); }
 
 function addMainProd() {
   mainProducts.push({ id: Date.now(), name: PRODUCT_LIST[0], customName: '', totalQty: '' });
   render();
-}
-
-function updateMainProd(id, f, v) {
-  let p = mainProducts.find(x => x.id === id);
-  p[f] = v;
-  if(f === 'name') render(); else updateSummary();
 }
 
 function addDateGroup() {
@@ -114,98 +98,80 @@ function addDateGroup() {
 }
 
 function render() {
-  const mList = document.getElementById('main-prod-list');
-  mList.innerHTML = mainProducts.map(p => `
+  document.getElementById('main-prod-list').innerHTML = mainProducts.map(p => `
     <div class="prod-row">
-      <select onchange="updateMainProd(${p.id},'name',this.value)">
+      <select onchange="p=mainProducts.find(x=>x.id===${p.id});p.name=this.value;render();">
         ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
       </select>
-      <div class="qty-group">
-        <input type="number" inputmode="numeric" pattern="[0-9]*" min="1" step="1" class="qty-field" placeholder="總盒數" 
-          value="${p.totalQty}" 
-          oninput="forceInt(this); updateMainProd(${p.id},'totalQty',this.value)">
-        <button class="btn-del" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();">✕</button>
-      </div>
-      ${p.name==='自定義'?`<input type="text" placeholder="品項名稱" style="width:100%;margin-top:10px;" value="${p.customName}" oninput="updateMainProd(${p.id},'customName',this.value)">`:''}
+      <input type="number" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="forceInt(this); p=mainProducts.find(x=>x.id===${p.id}); p.totalQty=this.value; updateSummary();">
+      <button class="btn-del" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();">✕</button>
+      ${p.name==='自定義'?`<input type="text" placeholder="名稱" style="width:100%;margin-top:5px;" value="${p.customName}" oninput="p=mainProducts.find(x=>x.id===${p.id}); p.customName=this.value; updateSummary();">`:''}
     </div>
   `).join('');
 
-  const gContainer = document.getElementById('date-group-container');
-  gContainer.innerHTML = dateGroups.map(g => `
+  document.getElementById('date-group-container').innerHTML = dateGroups.map(g => `
     <div class="date-group">
       <div class="date-head">
-        <div><strong>出貨日</strong> <input type="date" value="${g.date}" onchange="g.date=this.value; updateSummary();" style="width:150px;"></div>
+        <input type="date" value="${g.date}" onchange="g.date=this.value; updateSummary();" style="width:160px;">
         <button class="btn-del" onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id});render();">移除日期</button>
       </div>
       ${g.addresses.map((a, idx) => `
         <div class="place-card">
-          <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="font-weight:700;">📍 地點 ${idx+1}</span><button class="btn-del" onclick="removeAddr(${g.id}, ${a.id})">移除</button></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><b>地點 ${idx+1}</b><button class="btn-del" onclick="g=dateGroups.find(x=>x.id===${g.id});g.addresses=g.addresses.filter(x=>x.id!==${a.id});render();">移除</button></div>
           <div class="grid-2">
-            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="updateAddrVal(${g.id},${a.id},'receiver',this.value)">
-            <input type="tel" placeholder="電話" value="${a.receiverPhone}" oninput="updateAddrVal(${g.id},${a.id},'receiverPhone',this.value)">
-            <input type="text" placeholder="地址" style="grid-column: span 2;" value="${a.address}" oninput="updateAddrVal(${g.id},${a.id},'address',this.value)">
+            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="a.receiver=this.value; updateSummary();">
+            <input type="tel" placeholder="電話" value="${a.receiverPhone||''}" oninput="a.receiverPhone=this.value; updateSummary();">
+            <input type="text" placeholder="地址" style="grid-column:span 2;" value="${a.address}" oninput="a.address=this.value; updateSummary();">
           </div>
-          <div style="margin-top:15px; border-top:1px solid #eee; padding-top:10px;">
+          <div style="margin-top:10px; border-top:1px solid #eee; padding-top:10px;">
             ${mainProducts.map(p => `
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                <span style="font-size:13px;">${p.name==='自定義'?(p.customName||'自定義'):p.name}</span>
-                <input type="number" inputmode="numeric" pattern="[0-9]*" min="0" step="1" class="qty-field" style="height:35px; width:80px!important;" placeholder="0" 
-                  value="${a.items[p.id]||''}" 
-                  oninput="forceInt(this); updateItemQty(${g.id},${a.id},${p.id},this.value)">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                <span style="font-size:13px;">${p.name==='自定義'?p.customName:p.name}</span>
+                <input type="number" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="forceInt(this); a.items[${p.id}]=this.value; updateSummary();">
               </div>
             `).join('')}
           </div>
         </div>
       `).join('')}
-      <div style="padding:0 20px 20px;"><button class="btn-ghost" onclick="addAddr(${g.id})">＋ 在此日期新增地址</button></div>
+      <div style="padding:10px 15px;"><button class="btn-ghost" onclick="dateGroups.find(x=>x.id===${g.id}).addresses.push({id:Date.now(),receiver:'',address:'',items:{}});render();">＋ 新增地址</button></div>
     </div>
   `).join('');
   updateSummary();
 }
 
-function removeAddr(gId, aId) {
-  const g = dateGroups.find(x => x.id === gId);
-  g.addresses = g.addresses.filter(a => a.id !== aId);
-  render();
-}
-function addAddr(gId) {
-  dateGroups.find(g => g.id === gId).addresses.push({ id: Date.now(), receiver: '', receiverPhone: '', address: '', items: {} });
-  render();
-}
-function updateAddrVal(gId, aId, f, v) {
-  dateGroups.find(g => g.id === gId).addresses.find(a => a.id === aId)[f] = v;
-  updateSummary();
-}
-function updateItemQty(gId, aId, pId, v) {
-  dateGroups.find(g => g.id === gId).addresses.find(a => a.id === aId).items[pId] = v;
-  updateSummary();
-}
-
 function updateSummary() {
-  const container = document.getElementById('summary-pills');
-  let html = '';
-  
-  mainProducts.forEach(p => {
-    const target = Math.floor(Number(p.totalQty)) || 0;
-    let current = 0;
-    dateGroups.forEach(g => g.addresses.forEach(a => { current += (Math.floor(Number(a.items[p.id])) || 0); }));
-    const ok = (target > 0 && target === current);
-    const pLabel = p.name === '自定義' ? (p.customName || '自定義') : p.name;
-    html += `<span class="pill ${ok?'pill-ok':'pill-wait'}">${pLabel}: ${current}/${target}</span>`;
-  });
-  container.innerHTML = html;
-
-  const nameOk = document.getElementById('cust-name').value.trim() !== '';
-  const delOk = dateGroups.length > 0 && dateGroups.every(g => g.date && g.addresses.every(a => a.receiver.trim() && a.address.trim()));
-  
   const btn = document.getElementById('btn-submit');
-  if(nameOk && delOk) {
-    btn.disabled = false;
-    btn.innerText = "確認送出配送安排單";
-  } else {
-    btn.disabled = true;
-    btn.innerText = "請填寫必要資訊 (姓名/日期/地址)";
+  const pills = document.getElementById('summary-pills');
+  
+  // 檢查訂購人
+  const nameVal = document.getElementById('cust-name').value.trim();
+  if(!nameVal) { btn.disabled = true; btn.innerText = "❌ 請填寫訂購人姓名"; return; }
+
+  // 檢查品項總量有無設定
+  if(mainProducts.length === 0) { btn.disabled = true; btn.innerText = "❌ 請至少新增一個品項"; return; }
+
+  // 檢查日期與配送資訊
+  if(dateGroups.length === 0) { btn.disabled = true; btn.innerText = "❌ 請新增出貨日期"; return; }
+  
+  for(let g of dateGroups) {
+    if(!g.date) { btn.disabled = true; btn.innerText = "❌ 有日期尚未選擇"; return; }
+    for(let a of g.addresses) {
+      if(!a.receiver.trim()) { btn.disabled = true; btn.innerText = "❌ 有收件人姓名未填"; return; }
+      if(!a.address.trim()) { btn.disabled = true; btn.innerText = "❌ 有地址未填"; return; }
+    }
   }
+
+  // 渲染小膠囊 (純顯示，不鎖死按鈕)
+  pills.innerHTML = mainProducts.map(p => {
+    let target = Number(p.totalQty) || 0;
+    let current = 0;
+    dateGroups.forEach(g => g.addresses.forEach(a => current += (Number(a.items[p.id]) || 0)));
+    return `<span class="pill ${target>0 && target===current?'pill-ok':'pill-wait'}">${p.name==='自定義'?p.customName:p.name}: ${current}/${target}</span>`;
+  }).join('');
+
+  // 通過基礎檢查，解鎖
+  btn.disabled = false;
+  btn.innerText = "確認送出配送安排單";
 }
 
 async function submitForm() {
@@ -217,9 +183,7 @@ async function submitForm() {
       date: g.date,
       addresses: g.addresses.map(a => {
         let items = [];
-        mainProducts.forEach(p => {
-          if (a.items[p.id]) items.push({ name: p.name==='自定義'?p.customName:p.name, qty: Math.floor(Number(a.items[p.id])) });
-        });
+        mainProducts.forEach(p => { if(a.items[p.id]) items.push({name: p.name==='自定義'?p.customName:p.name, qty: a.items[p.id]}); });
         return { receiver: a.receiver, receiverPhone: a.receiverPhone, address: a.address, items: items };
       })
     }))
@@ -227,13 +191,11 @@ async function submitForm() {
   try {
     await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
     setTimeout(() => {
-      document.getElementById('ov-loading').innerHTML = `<div style="background:#fff;padding:50px;border-radius:30px;text-align:center;color:#2c2416;"><h1>送出成功</h1><button onclick="location.reload()" style="margin-top:20px;padding:10px 40px;background:#2c2416;color:#fff;border-radius:50px;border:none;">返回</button></div>`;
+      document.getElementById('ov-loading').innerHTML = `<div style="background:#fff;padding:40px;border-radius:20px;text-align:center;color:#2c2416;"><h1>送出成功</h1><button onclick="location.reload()" style="padding:10px 30px;background:#2c2416;color:#fff;border-radius:50px;">返回</button></div>`;
     }, 1000);
-  } catch(e) {
-    alert("送出失敗");
-    document.getElementById('ov-loading').style.display = 'none';
-  }
+  } catch(e) { alert("發送失敗"); document.getElementById('ov-loading').style.display='none'; }
 }
+
 addMainProd();
 </script>
 </body>
