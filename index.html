@@ -227,9 +227,12 @@ function render() {
             <button class="btn-del" onclick="removeAddr(${g.id}, ${a.id})">移除地址</button>
           </div>
           <div class="grid-2">
-            <div class="input-group"><label>收件人姓名</label><input type="text" value="${a.receiver}" oninput="updateAddrVal(${g.id},${a.id},'receiver',this.value)"></div>
-            <div class="input-group"><label>完整收件地址</label><input type="text" value="${a.address}" oninput="updateAddrVal(${g.id},${a.id},'address',this.value)"></div>
-          </div>
+           <div class="input-group"><label>收件人姓名</label><input type="text" value="${a.receiver}" oninput="updateAddrVal(${g.id},${a.id},'receiver',this.value)"></div>
+  
+  <div class="input-group"><label>收件人電話</label><input type="tel" value="${a.receiverPhone || ''}" oninput="updateAddrVal(${g.id},${a.id},'receiverPhone',this.value)"></div>
+  
+  <div class="input-group" style="grid-column: span 2;"><label>完整收件地址</label><input type="text" value="${a.address}" oninput="updateAddrVal(${g.id},${a.id},'address',this.value)"></div>
+</div>
           
           <div style="margin-top:10px; border-top:1px solid #f0efeb; padding-top:15px;">
             <p style="font-size:13px; font-weight:700; color:var(--text-light); margin-bottom:12px;">分配此地點的數量：</p>
