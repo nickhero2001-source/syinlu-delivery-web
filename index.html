@@ -6,71 +6,53 @@
 <title>幸福+工場・配送調度系統</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f9f6f2; --card-bg: #ffffff; --primary: #2c2416; --accent: #c9a96e;
-    --accent-dark: #a68a55; --text: #3d352a; --text-light: #7a6e5d; --border: #e3ddd3;
-    --orange: #d4622a;
-  }
+  :root { --bg: #f9f6f2; --primary: #2c2416; --accent: #c9a96e; --accent-dark: #a68a55; --text: #3d352a; --border: #e3ddd3; --orange: #d4622a; --green: #2d8a54; }
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 240px; }
-  .header { background: var(--primary); padding: 40px 20px; text-align: center; color: #fff; position: relative; }
-  .header::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: var(--accent); }
-  .header h1 { font-family: 'Noto Serif TC', serif; font-size: 28px; margin: 0; letter-spacing: 2px; }
+  .header { background: var(--primary); padding: 40px 20px; text-align: center; color: #fff; border-bottom: 6px solid var(--accent); }
+  .header h1 { font-family: 'Noto Serif TC', serif; font-size: 28px; margin: 0; }
   .wrapper { max-width: 800px; margin: 0 auto; padding: 0 15px; }
   .section-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--accent-dark); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
-  .main-card { background: var(--card-bg); border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 20px; }
-  .card-padding { padding: 20px; }
-  .total-control { background: #fdfbf8; border: 1px solid var(--border); border-radius: 10px; padding: 15px; margin-top: 10px; }
-  .prod-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
-  .prod-row select { flex: 1; min-width: 150px; }
-  .date-group { background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); margin-bottom: 30px; }
+  .main-card { background: #fff; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 20px; padding: 20px; }
+  .prod-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; background: #fdfbf8; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
+  .date-group { background: #fff; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
   .date-head { background: #fcfaf7; padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; border-radius: 15px 15px 0 0; }
   .place-card { margin: 15px; padding: 15px; background: #fff; border: 1px solid var(--border); border-radius: 10px; border-left: 5px solid var(--accent); }
-  .input-group { margin-bottom: 15px; }
-  .input-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; color: var(--text-light); }
   input, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; }
-  .qty-field { width: 80px !important; text-align: center; font-weight: 700; border: 2px solid var(--accent) !important; }
+  .qty-field { width: 85px !important; text-align: center; font-weight: 700; border: 2px solid var(--accent) !important; }
   .btn-ghost { background: transparent; border: 2px dashed var(--accent); color: var(--accent-dark); padding: 12px; width: 100%; border-radius: 10px; font-weight: 700; cursor: pointer; }
-  .btn-del { color: var(--orange); border: none; background: none; cursor: pointer; font-size: 13px; }
   .footer-summary { background: var(--primary); padding: 20px; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; border-top: 4px solid var(--accent); }
   .status-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
-  .pill { padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
-  .pill-ok { background: #2d8a54; }
-  .pill-wait { background: #d4622a; }
-  .btn-primary { width: 100%; max-width: 400px; padding: 18px; background: var(--accent); color: #fff; border: none; border-radius: 50px; font-size: 18px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; }
-  .btn-primary:disabled { background: #555; opacity: 0.7; cursor: not-allowed; font-size: 14px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+  .pill { padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 700; color: #fff; }
+  .pill-ok { background: var(--green); }
+  .pill-wait { background: var(--orange); }
+  .btn-primary { width: 100%; max-width: 400px; padding: 20px; background: var(--accent); color: #fff; border: none; border-radius: 50px; font-size: 18px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; }
+  .btn-primary:disabled { background: #555; opacity: 0.7; }
 </style>
 </head>
-<body onclick="updateSummary()">
+<body>
 
-<header class="header">
-  <h1>幸福+工場配送安排單</h1>
-</header>
+<header class="header"><h1>幸福+工場配送安排單</h1></header>
 
 <div class="wrapper">
   <div class="section-title"><i>1</i> 訂單總量與訂購人</div>
   <div class="main-card">
-    <div class="card-padding">
-      <div class="grid-2">
-        <div class="input-group"><label>訂購人姓名 *</label><input type="text" id="cust-name" placeholder="必填" oninput="updateSummary()"></div>
-        <div class="input-group"><label>聯絡電話</label><input type="tel" id="cust-phone"></div>
-      </div>
-      <div class="total-control">
-        <div id="main-prod-list"></div>
-        <button class="btn-ghost" onclick="addMainProd()">＋ 新增訂購品項</button>
-      </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
+      <div><label style="font-size:13px;">訂購人姓名 *</label><input type="text" id="cust-name" oninput="updateSummary()"></div>
+      <div><label style="font-size:13px;">聯絡電話</label><input type="tel" id="cust-phone"></div>
     </div>
+    <div id="main-prod-list"></div>
+    <button class="btn-ghost" onclick="addMainProd()">＋ 新增訂購品項</button>
   </div>
-  <div class="section-title"><i>2</i> 配送計畫</div>
+
+  <div class="section-title"><i>2</i> 配送計畫 (管控中)</div>
   <div id="date-group-container"></div>
-  <button class="btn-ghost" style="background:var(--primary); color:var(--accent); border:none; margin-bottom:80px;" onclick="addDateGroup()">＋ 新增出貨日期</button>
+  <button class="btn-ghost" style="background:var(--primary); color:var(--accent); margin-bottom:80px;" onclick="addDateGroup()">＋ 新增出貨日期</button>
 </div>
 
 <div class="footer-summary">
   <div class="status-pills" id="summary-pills"></div>
-  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫資訊</button>
+  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫必要資訊</button>
 </div>
 
 <div id="ov-loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; color:#fff; align-items:center; justify-content:center;">
@@ -93,36 +75,35 @@ function addMainProd() {
 
 function addDateGroup() {
   const gId = Date.now();
-  dateGroups.push({ id: gId, date: '', addresses: [{ id: gId+1, receiver: '', receiverPhone: '', address: '', items: {} }] });
+  dateGroups.push({ id: gId, date: '', addresses: [{ id: gId+1, receiver: '', address: '', items: {} }] });
   render();
 }
 
 function render() {
-  document.getElementById('main-prod-list').innerHTML = mainProducts.map(p => `
+  const mList = document.getElementById('main-prod-list');
+  mList.innerHTML = mainProducts.map(p => `
     <div class="prod-row">
-      <select onchange="p=mainProducts.find(x=>x.id===${p.id});p.name=this.value;render();">
+      <select style="flex:1;" onchange="p=mainProducts.find(x=>x.id===${p.id});p.name=this.value;render();">
         ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
       </select>
-      <input type="number" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="forceInt(this); p=mainProducts.find(x=>x.id===${p.id}); p.totalQty=this.value; updateSummary();">
-      <button class="btn-del" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();">✕</button>
-      ${p.name==='自定義'?`<input type="text" placeholder="名稱" style="width:100%;margin-top:5px;" value="${p.customName}" oninput="p=mainProducts.find(x=>x.id===${p.id}); p.customName=this.value; updateSummary();">`:''}
+      <input type="number" class="qty-field" placeholder="總盒數" value="${p.totalQty}" oninput="forceInt(this); p=mainProducts.find(x=>x.id===${p.id}); p.totalQty=this.value; updateSummary();">
+      <button onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();" style="border:none;background:none;color:red;">✕</button>
+      ${p.name==='自定義'?`<input type="text" placeholder="請輸入產品名稱" style="width:100%;margin-top:5px;" value="${p.customName}" oninput="p=mainProducts.find(x=>x.id===${p.id}); p.customName=this.value; updateSummary();">`:''}
     </div>
   `).join('');
 
-  document.getElementById('date-group-container').innerHTML = dateGroups.map(g => `
+  const gContainer = document.getElementById('date-group-container');
+  gContainer.innerHTML = dateGroups.map(g => `
     <div class="date-group">
       <div class="date-head">
         <input type="date" value="${g.date}" onchange="g.date=this.value; updateSummary();" style="width:160px;">
-        <button class="btn-del" onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id});render();">移除日期</button>
+        <button onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id});render();" style="border:none;background:none;color:red;">移除日期</button>
       </div>
       ${g.addresses.map((a, idx) => `
         <div class="place-card">
-          <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><b>地點 ${idx+1}</b><button class="btn-del" onclick="g=dateGroups.find(x=>x.id===${g.id});g.addresses=g.addresses.filter(x=>x.id!==${a.id});render();">移除</button></div>
-          <div class="grid-2">
-            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="a.receiver=this.value; updateSummary();">
-            <input type="tel" placeholder="電話" value="${a.receiverPhone||''}" oninput="a.receiverPhone=this.value; updateSummary();">
-            <input type="text" placeholder="地址" style="grid-column:span 2;" value="${a.address}" oninput="a.address=this.value; updateSummary();">
-          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><b>地點 ${idx+1}</b><button onclick="g=dateGroups.find(x=>x.id===${g.id});g.addresses=g.addresses.filter(x=>x.id!==${a.id});render();" style="border:none;background:none;color:red;font-size:12px;">移除地址</button></div>
+          <input type="text" placeholder="收件人姓名" value="${a.receiver}" oninput="a.receiver=this.value; updateSummary();" style="margin-bottom:10px;">
+          <input type="text" placeholder="配送地址" value="${a.address}" oninput="a.address=this.value; updateSummary();">
           <div style="margin-top:10px; border-top:1px solid #eee; padding-top:10px;">
             ${mainProducts.map(p => `
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
@@ -133,7 +114,7 @@ function render() {
           </div>
         </div>
       `).join('')}
-      <div style="padding:10px 15px;"><button class="btn-ghost" onclick="dateGroups.find(x=>x.id===${g.id}).addresses.push({id:Date.now(),receiver:'',address:'',items:{}});render();">＋ 新增地址</button></div>
+      <div style="padding:10px;"><button class="btn-ghost" onclick="dateGroups.find(x=>x.id===${g.id}).addresses.push({id:Date.now(),receiver:'',address:'',items:{}});render();">＋ 此日期新增收件地</button></div>
     </div>
   `).join('');
   updateSummary();
@@ -142,58 +123,72 @@ function render() {
 function updateSummary() {
   const btn = document.getElementById('btn-submit');
   const pills = document.getElementById('summary-pills');
-  
-  // 檢查訂購人
-  const nameVal = document.getElementById('cust-name').value.trim();
-  if(!nameVal) { btn.disabled = true; btn.innerText = "❌ 請填寫訂購人姓名"; return; }
+  let allMatched = true;
 
-  // 檢查品項總量有無設定
-  if(mainProducts.length === 0) { btn.disabled = true; btn.innerText = "❌ 請至少新增一個品項"; return; }
-
-  // 檢查日期與配送資訊
-  if(dateGroups.length === 0) { btn.disabled = true; btn.innerText = "❌ 請新增出貨日期"; return; }
-  
-  for(let g of dateGroups) {
-    if(!g.date) { btn.disabled = true; btn.innerText = "❌ 有日期尚未選擇"; return; }
-    for(let a of g.addresses) {
-      if(!a.receiver.trim()) { btn.disabled = true; btn.innerText = "❌ 有收件人姓名未填"; return; }
-      if(!a.address.trim()) { btn.disabled = true; btn.innerText = "❌ 有地址未填"; return; }
-    }
-  }
-
-  // 渲染小膠囊 (純顯示，不鎖死按鈕)
+  // 1. 渲染管控膠囊
   pills.innerHTML = mainProducts.map(p => {
-    let target = Number(p.totalQty) || 0;
+    let target = parseInt(p.totalQty) || 0;
     let current = 0;
-    dateGroups.forEach(g => g.addresses.forEach(a => current += (Number(a.items[p.id]) || 0)));
-    return `<span class="pill ${target>0 && target===current?'pill-ok':'pill-wait'}">${p.name==='自定義'?p.customName:p.name}: ${current}/${target}</span>`;
+    dateGroups.forEach(g => g.addresses.forEach(a => {
+      current += parseInt(a.items[p.id]) || 0;
+    }));
+    if (target === 0 || target !== current) allMatched = false;
+    return `<span class="pill ${target > 0 && target === current ? 'pill-ok' : 'pill-wait'}">${p.name==='自定義'?p.customName:p.name}: ${current}/${target}</span>`;
   }).join('');
 
-  // 通過基礎檢查，解鎖
-  btn.disabled = false;
-  btn.innerText = "確認送出配送安排單";
+  // 2. 檢查必要欄位
+  const nameOk = document.getElementById('cust-name').value.trim() !== "";
+  const dateOk = dateGroups.length > 0 && dateGroups.every(g => g.date !== "");
+  const addrOk = dateGroups.every(g => g.addresses.every(a => a.receiver.trim() !== "" && a.address.trim() !== ""));
+
+  // 3. 按鈕邏輯
+  if (nameOk && dateOk && addrOk) {
+    btn.disabled = false;
+    if (allMatched) {
+      btn.innerText = "確認送出配送安排單";
+      btn.style.background = "var(--green)";
+    } else {
+      btn.innerText = "盒數尚未對齊，仍要送出？";
+      btn.style.background = "var(--orange)";
+    }
+  } else {
+    btn.disabled = true;
+    btn.innerText = "請填寫姓名、日期與收件地";
+    btn.style.background = "#555";
+  }
 }
 
 async function submitForm() {
+  const btn = document.getElementById('btn-submit');
+  if (btn.innerText.includes("尚未對齊")) {
+    if (!confirm("目前分配盒數與總盒數不符，確定要送出嗎？")) return;
+  }
+
   document.getElementById('ov-loading').style.display = 'flex';
   const payload = {
     customer: document.getElementById('cust-name').value,
-    phone: document.getElementById('cust-phone').value,
+    phone: document.getElementById('cust-phone').value || "未填",
     dateGroups: dateGroups.map(g => ({
       date: g.date,
       addresses: g.addresses.map(a => {
         let items = [];
-        mainProducts.forEach(p => { if(a.items[p.id]) items.push({name: p.name==='自定義'?p.customName:p.name, qty: a.items[p.id]}); });
-        return { receiver: a.receiver, receiverPhone: a.receiverPhone, address: a.address, items: items };
+        mainProducts.forEach(p => {
+          if (a.items[p.id]) items.push({ name: p.name==='自定義'?p.customName:p.name, qty: a.items[p.id] });
+        });
+        return { receiver: a.receiver, address: a.address, items: items };
       })
     }))
   };
+
   try {
     await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
     setTimeout(() => {
-      document.getElementById('ov-loading').innerHTML = `<div style="background:#fff;padding:40px;border-radius:20px;text-align:center;color:#2c2416;"><h1>送出成功</h1><button onclick="location.reload()" style="padding:10px 30px;background:#2c2416;color:#fff;border-radius:50px;">返回</button></div>`;
+      document.getElementById('ov-loading').innerHTML = `<div style="background:#fff;padding:40px;border-radius:20px;text-align:center;color:#2c2416;"><h1>發送成功</h1><button onclick="location.reload()" style="padding:10px 30px;background:#2c2416;color:#fff;border-radius:50px;border:none;">返回</button></div>`;
     }, 1000);
-  } catch(e) { alert("發送失敗"); document.getElementById('ov-loading').style.display='none'; }
+  } catch(e) {
+    alert("發送失敗，請重試");
+    document.getElementById('ov-loading').style.display = 'none';
+  }
 }
 
 addMainProd();
