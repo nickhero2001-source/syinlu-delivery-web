@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幸福+工場・配送安排單</title>
+<meta name="description" content="心路基金會幸福+工場禮盒配送安排表單">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:        #faf6f0;
+  --warm:         #fff9f2;
+  --gold:         #c9a96e;
+  --gold-light:   #e8d5b0;
+  --gold-dark:    #9e7a45;
+  --ink:          #2c2416;
+  --ink-mid:      #6b5840;
+  --ink-light:    #a8927a;
+  --border:       #e5d8c5;
+  --border-dark:  #c8b89a;
+  --orange:       #d4622a;
+  --orange-bg:    #fdf0ea;
+  --success:      #4a8a5a;
+  --success-bg:   #eef7f1;
+  --serif:        'Noto Serif TC', serif;
+  --sans:         'Noto Sans TC', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────── */
+.header {
+  background: var(--ink);
+  padding: 40px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.header-badge {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  border: 1px solid rgba(201,169,110,0.35);
+  padding: 4px 16px;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: var(--serif);
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 600;
+  color: #fff8ee;
+  letter-spacing: 5px;
+  line-height: 1.4;
+}
+.header h1 em { color: var(--gold); font-style: normal; }
+.header p {
+  font-size: 12px;
+  color: rgba(255,248,238,0.5);
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+/* ── Progress ─────────────────────────────────── */
+.progress-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.progress-step {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-light);
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+  font-family: var(--serif);
+}
+.progress-step.active {
+  color: var(--gold-dark);
+  border-bottom-color: var(--gold);
+}
+.progress-step.done {
+  color: var(--success);
+  border-bottom-color: var(--success);
+}
+.step-num {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 10px;
+  line-height: 18px;
+  margin-right: 6px;
+  text-align: center;
+}
+
+/* ── Layout ───────────────────────────────────── */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* ── Cards ────────────────────────────────────── */
+.card {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  animation: fadeIn .3s ease;
+}
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.card-head {
+  background: var(--ink);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-head-num {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  font-family: var(--serif);
+  font-size: 11px;
+  color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.card-head h2 {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff8ee;
+  letter-spacing: 3px;
+}
+.card-body { padding: 20px; }
+
+/* ── Form Fields ──────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.span2  { grid-column: span 2; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--ink-light);
+  font-weight: 500;
+}
+.field label .req { color: var(--orange); margin-left: 2px; }
+
+.field input,
+.field select,
+.field textarea {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+}
+.field textarea { resize: vertical; min-height: 72px; }
+.field .hint {
+  font-size: 11px;
+  color: var(--ink-light);
+}
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea { border-color: var(--orange); }
+.field .err-text {
+  font-size: 11px;
+  color: var(--orange);
+  display: none;
+}
+.field.has-error .err-text { display: block; }
+
+/* ── Product Table ────────────────────────────── */
+.prod-hint {
+  font-size: 12px;
+  color: var(--ink-light);
+  letter-spacing: .5px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+}
+.prod-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+.prod-table th {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--ink-light);
+  font-weight: 500;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--cream);
+}
+.prod-table td {
+  padding: 6px 6px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.prod-table tr:last-child td { border-bottom: none; }
+.prod-table input[type="text"] { width: 100%; }
+.prod-table input[type="number"] { width: 88px; text-align: center; }
+.alloc-cell {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.alloc-ok   { color: var(--success); }
+.alloc-over { color: var(--orange); }
+.alloc-zero { color: var(--ink-light); }
+
+.btn-add-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--gold-dark);
+  background: none;
+  border: 1px dashed var(--gold-light);
+  border-radius: 2px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--sans);
+}
+.btn-add-row:hover {
+  background: #fff8ee;
+  border-color: var(--gold);
+}
+
+/* ── Delivery Cards ───────────────────────────── */
+.del-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: #fff;
+  animation: fadeIn .25s ease;
+}
+.del-card-head {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.del-card-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--ink-mid);
+  letter-spacing: 2px;
+}
+.del-card-title span {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--gold-light);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+.btn-del {
+  font-size: 11px;
+  color: var(--orange);
+  background: none;
+  border: 1px solid rgba(212,98,42,0.3);
+  border-radius: 2px;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all .15s;
+}
+.btn-del:hover {
+  background: var(--orange-bg);
+  border-color: var(--orange);
+}
+.del-card-body { padding: 16px; }
+
+.qty-rows { margin-top: 10px; }
+.qty-row {
+  display: flex;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--border);
+  gap: 10px;
+}
+.qty-row:last-child { border-bottom: none; }
+.qty-label {
+  flex: 1;
+  font-size: 13px;
+  color: var(--ink-mid);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.qty-input {
+  width: 80px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: var(--sans);
+  text-align: center;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+  flex-shrink: 0;
+}
+.qty-input:focus { border-color: var(--gold); }
+.qty-remain {
+  font-size: 11px;
+  color: var(--ink-light);
+  white-space: nowrap;
+  min-width: 80px;
+  text-align: right;
+}
+.qty-remain.over { color: var(--orange); }
+
+.qty-section-title {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--ink-light);
+  font-weight: 500;
+  margin: 10px 0 6px;
+}
+
+.btn-add-del {
+  width: 100%;
+  background: #fff;
+  border: 1px dashed var(--border-dark);
+  border-radius: 2px;
+  padding: 12px;
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--ink-light);
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 20px;
+}
+.btn-add-del:hover {
+  background: var(--warm);
+  border-color: var(--gold);
+  color: var(--gold-dark);
+}
+
+/* ── Summary Bar ──────────────────────────────── */
+.summary {
+  background: var(--ink);
+  border-radius: 2px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+}
+.sum-item {
+  font-size: 12px;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+}
+.sum-item strong {
+  color: var(--gold);
+  font-size: 16px;
+  margin: 0 3px;
+}
+.sum-item.warn strong { color: #ff9f7a; }
+
+/* ── Buttons ──────────────────────────────────── */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #fff8ee;
+  border: none;
+  border-radius: 2px;
+  font-family: var(--serif);
+  font-size: 16px;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: all .3s;
+  box-shadow: 0 4px 16px rgba(158,122,69,0.3);
+}
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(158,122,69,0.4);
+}
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+.submit-note {
+  text-align: center;
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* ── Loading Overlay ──────────────────────────── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(44,36,22,.75);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+.overlay.show { display: flex; }
+.overlay-box {
+  background: var(--warm);
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  padding: 40px 36px;
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+  animation: fadeIn .3s ease;
+}
+.overlay-box h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.overlay-box p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.9;
+  letter-spacing: .5px;
+}
+.overlay-icon {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  color: var(--gold);
+  margin: 0 auto 16px;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 2px solid var(--gold-light);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn-close {
+  margin-top: 20px;
+  padding: 9px 28px;
+  background: var(--ink);
+  color: var(--gold-light);
+  border: none;
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.btn-close:hover { background: #4a3520; }
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 600px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .span2  { grid-column: span 1; }
+  .card-body { padding: 14px; }
+  .progress-step { font-size: 11px; padding: 10px 4px; }
+  .step-num { display: none; }
+  .qty-row { flex-wrap: wrap; }
+  .qty-remain { min-width: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="header-badge">心路基金會・幸福+工場</div>
+  <h1>禮盒<em>配送安排單</em></h1>
+  <p>Gift Box Delivery Arrangement</p>
+</div>
+
+<!-- ── Progress ── -->
+<div class="progress-bar" role="navigation" aria-label="填寫步驟">
+  <div class="progress-step active" id="step-1" onclick="scrollToSection('sec-basic')">
+    <span class="step-num">1</span>訂購人
+  </div>
+  <div class="progress-step" id="step-2" onclick="scrollToSection('sec-products')">
+    <span class="step-num">2</span>已訂品項
+  </div>
+  <div class="progress-step" id="step-3" onclick="scrollToSection('sec-delivery')">
+    <span class="step-num">3</span>配送點
+  </div>
+  <div class="progress-step" id="step-4" onclick="scrollToSection('sec-submit')">
+    <span class="step-num">4</span>送出
+  </div>
+</div>
+
+<!-- ── Main ── -->
+<main class="container">
+
+  <!-- 1. 訂購人 -->
+  <section id="sec-basic">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">一</div>
+        <h2>訂購人基本資料</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div class="field" id="f-cust-name">
+            <label>訂購人姓名 <span class="req">*</span></label>
+            <input type="text" id="cust-name" placeholder="請填寫姓名" autocomplete="name">
+            <span class="err-text">請填寫姓名</span>
+          </div>
+          <div class="field" id="f-cust-phone">
+            <label>聯絡電話 <span class="req">*</span></label>
+            <input type="tel" id="cust-phone" placeholder="0912-345-678" autocomplete="tel">
+            <span class="err-text">請填寫聯絡電話</span>
+          </div>
+          <div class="field span2">
+            <label>備註說明</label>
+            <textarea id="cust-note" placeholder="如有特殊需求、包裝說明或文案內容請填寫…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 已訂品項 -->
+  <section id="sec-products">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">二</div>
+        <h2>已訂購品項與總數量</h2>
+      </div>
+      <div class="card-body">
+        <p class="prod-hint">請填入您已確認訂購的品項及各品項總盒數。後續各配送點的分配數量加總不可超過此處的總數。</p>
+        <table class="prod-table" id="prod-table">
+          <thead>
+            <tr>
+              <th style="width:50%">品項名稱</th>
+              <th style="width:18%">訂購總數（盒）</th>
+              <th style="width:22%">已分配 / 總數</th>
+              <th style="width:10%"></th>
+            </tr>
+          </thead>
+          <tbody id="prod-body"></tbody>
+        </table>
+        <button class="btn-add-row" type="button" onclick="addProdRow()">＋ 新增品項</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 配送點 -->
+  <section id="sec-delivery">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-num">三</div>
+        <h2>配送點安排</h2>
+      </div>
+      <div class="card-body">
+        <p class="prod-hint">請依序填寫每個配送點的收件資訊，以及該點各品項的配送數量。</p>
+        <div id="delivery-list"></div>
+        <button class="btn-add-del" type="button" onclick="addDelivery()">＋ 新增配送點</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <div class="summary" id="summary"></div>
+
+  <!-- 4. 送出 -->
+  <section id="sec-submit">
+    <button class="btn-submit" type="button" onclick="submitForm()" id="btn-submit">
+      確認送出配送安排單
+    </button>
+    <p class="submit-note">送出後系統將自動通知業務人員，並將資料寫入訂單管理表</p>
+  </section>
+
+</main>
+
+<!-- ── Loading Overlay ── -->
+<div class="overlay" id="ov-loading">
+  <div class="overlay-box">
+    <div class="spinner"></div>
+    <h3>送出中</h3>
+    <p>正在傳送您的配送安排，<br>請稍候…</p>
+  </div>
+</div>
+
+<!-- ── Success Overlay ── -->
+<div class="overlay" id="ov-success">
+  <div class="overlay-box">
+    <div class="overlay-icon">✓</div>
+    <h3>送出成功</h3>
+    <p>您的配送安排單已送出<br>業務人員將收到 Email 通知<br>並盡快確認您的配送安排<br><br>感謝選購幸福+工場禮盒</p>
+    <button class="btn-close" onclick="location.reload()">重新填寫</button>
+  </div>
+</div>
+
+<!-- ── Error Overlay ── -->
+<div class="overlay" id="ov-error">
+  <div class="overlay-box">
+    <div class="overlay-icon" style="color:var(--orange);border-color:var(--orange)">!</div>
+    <h3>送出失敗</h3>
+    <p id="ov-error-msg">請稍後再試，或聯繫業務人員。</p>
+    <button class="btn-close" onclick="hideAllOverlay()">關閉</button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────
+// ★ 請將下方網址換成你的 Google Apps Script Web App URL
+// ─────────────────────────────────────────────────────
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyccQ59ryobwSBx21vhGc_-Vw7rMefEsa9qHQ1XrGEcy8686Pfwd_NMOnZAPCqRWpXV/exec';
+
+// ── State ─────────────────────────────────────────────
+let products  = [];   // [{id, name, total}]
+let deliveries = [];  // [{id, name, phone, date, address, items:[{prodId,qty}]}]
+let prodIdCtr = 0;
+let delIdCtr  = 0;
+
+// ── Product Row ───────────────────────────────────────
+function addProdRow(name='', total=0) {
+  const id = ++prodIdCtr;
+  products.push({ id, name, total });
+  renderProdTable();
+  syncDeliveryItems();
+  updateSummary();
+}
+
+function renderProdTable() {
+  const tbody = document.getElementById('prod-body');
+  tbody.innerHTML = '';
+  products.forEach(p => {
+    const alloc = calcAllocated(p.id);
+    const total = p.total || 0;
+    let cls = alloc === 0 ? 'alloc-zero' : alloc > total ? 'alloc-over' : 'alloc-ok';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <input type="text" class="field input" value="${esc(p.name)}"
+          placeholder="品項名稱" style="width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:2px;font-size:14px;font-family:var(--sans);outline:none;"
+          oninput="updateProd(${p.id},'name',this.value)"
+          onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+      </td>
+      <td>
+        <input type="number" min="0" value="${total||''}" placeholder="0"
+          style="width:88px;padding:7px 8px;border:1px solid var(--border);border-radius:2px;font-size:14px;font-family:var(--sans);text-align:center;outline:none;"
+          oninput="updateProd(${p.id},'total',+this.value||0)"
+          onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+      </td>
+      <td>
+        <span class="alloc-cell ${cls}" id="alloc-${p.id}">${alloc} / ${total}</span>
+      </td>
+      <td style="text-align:center">
+        <button type="button" onclick="removeProd(${p.id})"
+          style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--orange);padding:4px 6px;">✕</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateProd(id, field, val) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  p[field] = val;
+  if (field === 'total') {
+    updateAllocCells();
+    updateSummary();
+  }
+  if (field === 'name') {
+    refreshDeliveryItemLabels();
+  }
+}
+
+function removeProd(id) {
+  products = products.filter(x => x.id !== id);
+  deliveries.forEach(d => { d.items = d.items.filter(i => i.prodId !== id); });
+  renderProdTable();
+  renderAllDeliveries();
+  updateSummary();
+}
+
+// ── Allocation calc ────────────────────────────────────
+function calcAllocated(prodId) {
+  return deliveries.reduce((s, d) => {
+    const it = d.items.find(i => i.prodId === prodId);
+    return s + (it ? (it.qty || 0) : 0);
+  }, 0);
+}
+
+function updateAllocCells() {
+  products.forEach(p => {
+    const cell = document.getElementById('alloc-' + p.id);
+    if (!cell) return;
+    const alloc = calcAllocated(p.id);
+    const total = p.total || 0;
+    cell.textContent = `${alloc} / ${total}`;
+    cell.className = 'alloc-cell ' + (alloc === 0 ? 'alloc-zero' : alloc > total ? 'alloc-over' : 'alloc-ok');
+  });
+}
+
+// ── Delivery Cards ─────────────────────────────────────
+function addDelivery() {
+  const id = ++delIdCtr;
+  const items = products.map(p => ({ prodId: p.id, qty: 0 }));
+  deliveries.push({ id, name: '', phone: '', date: '', address: '', items });
+  appendDeliveryCard(id);
+  updateSummary();
+}
+
+function syncDeliveryItems() {
+  // add missing prodId entries to existing deliveries
+  deliveries.forEach(d => {
+    products.forEach(p => {
+      if (!d.items.find(i => i.prodId === p.id)) {
+        d.items.push({ prodId: p.id, qty: 0 });
+      }
+    });
+  });
+  renderAllDeliveries();
+}
+
+function renderAllDeliveries() {
+  const list = document.getElementById('delivery-list');
+  list.innerHTML = '';
+  deliveries.forEach((d, idx) => buildDeliveryCard(d, idx, false));
+}
+
+function appendDeliveryCard(id) {
+  const idx = deliveries.findIndex(x => x.id === id);
+  buildDeliveryCard(deliveries[idx], idx, true);
+}
+
+function buildDeliveryCard(d, idx, append) {
+  const list = document.getElementById('delivery-list');
+
+  const qtyRowsHtml = products.length === 0
+    ? '<p style="font-size:12px;color:var(--ink-light)">請先在上方新增訂購品項</p>'
+    : products.map(p => {
+        const item = d.items.find(i => i.prodId === p.id) || { prodId: p.id, qty: 0 };
+        if (!d.items.find(i => i.prodId === p.id)) d.items.push(item);
+        const alloc = calcAllocated(p.id);
+        const remain = (p.total || 0) - alloc + (item.qty || 0);
+        const over = (item.qty || 0) > remain;
+        return `<div class="qty-row" id="qr-${d.id}-${p.id}">
+          <span class="qty-label" title="${esc(p.name)}">${esc(p.name) || '(未命名品項)'}</span>
+          <input type="number" class="qty-input" min="0" value="${item.qty || 0}"
+            oninput="updateDelItem(${d.id},${p.id},+this.value||0)">
+          <span class="qty-remain ${over ? 'over' : ''}" id="rem-${d.id}-${p.id}">
+            剩餘 ${Math.max(0, remain)} 盒
+          </span>
+        </div>`;
+      }).join('');
+
+  const card = document.createElement('div');
+  card.className = 'del-card';
+  card.id = `del-${d.id}`;
+  card.innerHTML = `
+    <div class="del-card-head">
+      <span class="del-card-title"><span>配送點 ${idx + 1}</span>收件資訊</span>
+      <button type="button" class="btn-del" onclick="removeDelivery(${d.id})">移除</button>
+    </div>
+    <div class="del-card-body">
+      <div class="grid-2">
+        <div class="field">
+          <label>收件人姓名 <span class="req">*</span></label>
+          <input type="text" value="${esc(d.name)}" placeholder="姓名"
+            oninput="updateDel(${d.id},'name',this.value)">
+        </div>
+        <div class="field">
+          <label>聯絡電話</label>
+          <input type="tel" value="${esc(d.phone)}" placeholder="0912-345-678"
+            oninput="updateDel(${d.id},'phone',this.value)">
+        </div>
+        <div class="field">
+          <label>配送日期 <span class="req">*</span></label>
+          <input type="date" value="${esc(d.date)}"
+            oninput="updateDel(${d.id},'date',this.value)">
+        </div>
+        <div class="field span2">
+          <label>配送地址 <span class="req">*</span></label>
+          <input type="text" value="${esc(d.address)}" placeholder="請填寫完整配送地址"
+            oninput="updateDel(${d.id},'address',this.value)">
+        </div>
+      </div>
+      <div class="qty-section-title">各品項配送數量（盒）</div>
+      <div class="qty-rows">${qtyRowsHtml}</div>
+    </div>`;
+
+  if (append) {
+    list.appendChild(card);
+  } else {
+    const existing = document.getElementById(`del-${d.id}`);
+    if (existing) existing.replaceWith(card);
+    else list.appendChild(card);
+  }
+}
+
+function refreshDeliveryItemLabels() {
+  deliveries.forEach(d => {
+    products.forEach(p => {
+      const label = document.querySelector(`#qr-${d.id}-${p.id} .qty-label`);
+      if (label) {
+        label.textContent = p.name || '(未命名品項)';
+        label.title = p.name || '';
+      }
+    });
+  });
+}
+
+function updateDel(id, field, val) {
+  const d = deliveries.find(x => x.id === id);
+  if (d) d[field] = val;
+}
+
+function updateDelItem(delId, prodId, val) {
+  const d = deliveries.find(x => x.id === delId);
+  if (!d) return;
+  let item = d.items.find(i => i.prodId === prodId);
+  if (!item) { item = { prodId, qty: 0 }; d.items.push(item); }
+  item.qty = val;
+  updateAllocCells();
+  updateSummary();
+  // update remain labels for this product across all delivery cards
+  deliveries.forEach(dd => {
+    const it = dd.items.find(i => i.prodId === prodId) || { qty: 0 };
+    const alloc = calcAllocated(prodId);
+    const remain = (products.find(p => p.id === prodId)?.total || 0) - alloc + (it.qty || 0);
+    const el = document.getElementById(`rem-${dd.id}-${prodId}`);
+    if (el) {
+      el.textContent = `剩餘 ${Math.max(0, remain)} 盒`;
+      el.className = 'qty-remain' + ((it.qty || 0) > remain ? ' over' : '');
+    }
+  });
+}
+
+function removeDelivery(id) {
+  deliveries = deliveries.filter(x => x.id !== id);
+  renderAllDeliveries();
+  updateAllocCells();
+  updateSummary();
+}
+
+// ── Summary Bar ────────────────────────────────────────
+function updateSummary() {
+  const el = document.getElementById('summary');
+  if (products.length === 0 && deliveries.length === 0) { el.innerHTML = ''; return; }
+  const totalBoxes = products.reduce((s, p) => s + (p.total || 0), 0);
+  const allocBoxes = products.reduce((s, p) => s + calcAllocated(p.id), 0);
+  const unalloc    = totalBoxes - allocBoxes;
+  const hasOver    = products.some(p => calcAllocated(p.id) > (p.total || 0));
+  el.innerHTML = `
+    <div class="sum-item">品項種數：<strong>${products.length}</strong></div>
+    <div class="sum-item">訂購總盒數：<strong>${totalBoxes}</strong></div>
+    <div class="sum-item">已分配：<strong>${allocBoxes}</strong></div>
+    <div class="sum-item ${unalloc < 0 ? 'warn' : ''}">待分配：<strong>${unalloc}</strong></div>
+    <div class="sum-item">配送點：<strong>${deliveries.length}</strong></div>
+    ${hasOver ? '<div class="sum-item warn">⚠ 部分品項超量，請確認</div>' : ''}`;
+}
+
+// ── Validation ─────────────────────────────────────────
+function validate() {
+  let ok = true;
+  const required = [
+    { id: 'cust-name', fid: 'f-cust-name', msg: '請填寫訂購人姓名' },
+    { id: 'cust-phone', fid: 'f-cust-phone', msg: '請填寫聯絡電話' },
+  ];
+  required.forEach(r => {
+    const el = document.getElementById(r.id);
+    const f  = document.getElementById(r.fid);
+    if (!el.value.trim()) { f.classList.add('has-error'); ok = false; }
+    else f.classList.remove('has-error');
+  });
+  if (products.length === 0) { alert('請至少新增一項已訂購品項'); ok = false; }
+  if (deliveries.length === 0) { alert('請至少新增一個配送點'); ok = false; }
+  const missingDel = deliveries.find(d => !d.name.trim() || !d.date || !d.address.trim());
+  if (missingDel) { alert('有配送點的收件人姓名、日期或地址未填寫，請確認'); ok = false; }
+  return ok;
+}
+
+// ── Submit ─────────────────────────────────────────────
+async function submitForm() {
+  if (!validate()) return;
+
+  const hasOver = products.some(p => calcAllocated(p.id) > (p.total || 0));
+  if (hasOver && !confirm('部分品項分配數量超出訂購總數，確定要送出嗎？')) return;
+
+  const payload = {
+    customerName:  document.getElementById('cust-name').value.trim(),
+    customerPhone: document.getElementById('cust-phone').value.trim(),
+    note:          document.getElementById('cust-note').value.trim(),
+    products:      products.map(p => ({ name: p.name, total: p.total || 0 })),
+    deliveries:    deliveries.map(d => ({
+      name:    d.name,
+      phone:   d.phone,
+      date:    d.date,
+      address: d.address,
+      items:   d.items
+        .filter(i => (i.qty || 0) > 0)
+        .map(i => ({
+          productName: products.find(p => p.id === i.prodId)?.name || '',
+          qty: i.qty
+        }))
+    })),
+    submittedAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+  };
+
+  showOverlay('ov-loading');
+  document.getElementById('btn-submit').disabled = true;
+
+  try {
+    const resp = await fetch(GAS_URL, {
+      method: 'POST',
+      mode:   'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    // no-cors returns opaque response; assume success
+    hideAllOverlay();
+    showOverlay('ov-success');
+  } catch (err) {
+    hideAllOverlay();
+    document.getElementById('ov-error-msg').textContent = `送出失敗：${err.message}，請稍後再試或聯繫業務人員。`;
+    showOverlay('ov-error');
+    document.getElementById('btn-submit').disabled = false;
+  }
+}
+
+// ── Overlay helpers ────────────────────────────────────
+function showOverlay(id) { document.getElementById(id).classList.add('show'); }
+function hideAllOverlay() {
+  ['ov-loading','ov-success','ov-error'].forEach(id =>
+    document.getElementById(id).classList.remove('show')
+  );
+}
+
+// ── Progress scroll ────────────────────────────────────
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Init with sample rows ──────────────────────────────
+addProdRow();
+</script>
+</body>
+</html>
