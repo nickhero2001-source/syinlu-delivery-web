@@ -33,7 +33,42 @@
 
   /* 總量設定區 */
   .total-control { background: #fdfbf8; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 15px; }
-  .prod-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+/* 修正產品列在手機上的排版 */
+.prod-row { 
+  display: flex; 
+  flex-wrap: wrap; /* 允許折行 */
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 15px; 
+  background: #fdfbf8;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+/* 下拉選單在手機上佔據更多空間 */
+.prod-row select { 
+  flex: 1; 
+  min-width: 180px; /* 確保產品名稱不被擠壓 */
+}
+
+/* 盒數輸入框與刪除按鈕 */
+.prod-row .qty-field { 
+  width: 90px !important; 
+}
+
+.prod-row .btn-del {
+  padding: 10px;
+}
+
+/* 針對極窄手機的額外優化 */
+@media (max-width: 400px) {
+  .prod-row select { 
+    flex-basis: 100%; /* 品項名稱自佔一行 */
+  }
+  .prod-row .qty-field {
+    flex-grow: 1; /* 盒數變長一點方便點擊 */
+  }
+} { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
   
   /* 配送日期區塊 */
   .date-group { background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); margin-bottom: 40px; box-shadow: 0 15px 50px rgba(0,0,0,0.03); }
@@ -162,13 +197,15 @@ function render() {
   const mList = document.getElementById('main-prod-list');
   mList.innerHTML = mainProducts.map(p => `
     <div class="prod-row">
-      <select onchange="updateMainProd(${p.id},'name',this.value)" style="flex:1;">
+      <select onchange="updateMainProd(${p.id},'name',this.value)">
         ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
       </select>
-      <input type="number" inputmode="numeric" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="updateMainProd(${p.id},'totalQty',this.value)">
-      <button class="btn-del" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();">✕</button>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <input type="number" inputmode="numeric" class="qty-field" placeholder="數量" value="${p.totalQty}" oninput="updateMainProd(${p.id},'totalQty',this.value)">
+        <button class="btn-del" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id});render();">✕</button>
+      </div>
+      ${p.name==='自定義'?`<input type="text" placeholder="請輸入產品名稱" style="width:100%; margin-top:10px;" value="${p.customName}" oninput="updateMainProd(${p.id},'customName',this.value)">`:''}
     </div>
-    ${p.name==='自定義'?`<input type="text" placeholder="請輸入產品名稱" style="margin-bottom:15px;" value="${p.customName}" oninput="updateMainProd(${p.id},'customName',this.value)">`:''}
   `).join('');
 
   // 計畫區
