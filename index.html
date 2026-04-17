@@ -54,7 +54,7 @@
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
-const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精采世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
+const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精彩世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
 
 let customerData = { name: '', phone: '' };
 let mainProducts = [];
@@ -90,7 +90,7 @@ function render() {
         <select style="flex:1; margin-bottom:0;" onchange="mainProducts.find(m=>m.id===${p.id}).name=this.value; render();">
           ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
         </select>
-        <input type="number" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="mainProducts.find(m=>m.id===${p.id}).totalQty=this.value.replace(/[^0-9]/g,''); updateSummary();">
+        <input type="number" min="1" step="1" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="mainProducts.find(m=>m.id===${p.id}).totalQty=Math.abs(Math.floor(this.value)) || ''; updateSummary();">
         <button onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id}); render();" style="border:none;background:none;color:red;font-size:18px;">✕</button>
       </div>
       ${p.name==='自定義'?`<input type="text" placeholder="輸入產品名" style="margin-top:5px;" value="${p.customName}" oninput="mainProducts.find(m=>m.id===${p.id}).customName=this.value; updateSummary();">`:''}
@@ -109,14 +109,14 @@ function render() {
           <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><b>地點 ${idx+1}</b> <button onclick="let tg=dateGroups.find(x=>x.id===${g.id}); tg.addresses=tg.addresses.filter(x=>x.id!==${a.id}); render();" style="border:none;background:none;color:red;font-size:12px;">移除</button></div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <input type="text" placeholder="收件人" value="${a.receiver}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).receiver=this.value; updateSummary();">
-            <input type="tel" placeholder="收件人電話" value="${a.rPhone}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).rPhone=this.value; updateSummary();">
+            <input type="tel" placeholder="電話" value="${a.rPhone}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).rPhone=this.value; updateSummary();">
           </div>
           <input type="text" placeholder="配送地址" value="${a.address}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).address=this.value; updateSummary();">
           <div style="margin-top:5px; border-top:1px solid #eee; padding-top:10px;">
             ${mainProducts.map(p => `
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
                 <span style="font-size:12px; color:#666;">${p.name==='自定義'? (p.customName||'自定義') : p.name}</span>
-                <input type="number" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).items[${p.id}]=this.value.replace(/[^0-9]/g,''); updateSummary();">
+                <input type="number" min="0" step="1" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).items[${p.id}]=Math.abs(Math.floor(this.value)) || ''; updateSummary();">
               </div>
             `).join('')}
           </div>
@@ -164,19 +164,20 @@ async function submitForm() {
   
   document.getElementById('ov-loading').style.display = 'flex';
   
+  // 關鍵修正：在電話前面補一個 ' 強制試算表當文字處理，避免開頭的 0 被刪除
   const payload = {
     customer: customerData.name,
-    phone: customerData.phone || "未填",
+    phone: (customerData.phone.startsWith("'") ? customerData.phone : "'" + customerData.phone),
     dateGroups: dateGroups.map(g => ({
       date: g.date,
       addresses: g.addresses.map(a => {
         let items = [];
         mainProducts.forEach(p => { 
-          if(a.items[p.id]) items.push({ name: p.name==='自定義'?p.customName:p.name, qty: a.items[p.id] }); 
+          if(a.items[p.id]) items.push({ name: p.name==='自定義'?p.customName:p.name, qty: parseInt(a.items[p.id]) }); 
         });
         return { 
           receiver: a.receiver, 
-          phone: a.rPhone, // <--- 確保 key 是 'phone'
+          phone: (a.rPhone.startsWith("'") ? a.rPhone : "'" + a.rPhone), // 強制文字格式
           address: a.address, 
           items: items 
         };
@@ -185,14 +186,9 @@ async function submitForm() {
   };
 
   try {
-    await fetch(GAS_URL, { 
-      method: 'POST', 
-      mode: 'no-cors', 
-      body: JSON.stringify(payload) 
-    });
-    
+    await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
     setTimeout(() => {
-      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><p>若電話仍未出現，請檢查 GAS 後端腳本是否已更新並「重新部署」。</p><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
+      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
     }, 1500);
   } catch(e) {
     alert("發送失敗。");
