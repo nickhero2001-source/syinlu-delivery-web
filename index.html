@@ -36,15 +36,34 @@
   .field input, .field select, .field textarea { 
     width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 6px; 
     font-size: 16px; background: #fff; transition: 0.3s;
-    appearance: none; -webkit-appearance: none; /* 防止 iOS 預設樣式干擾 */
+    appearance: none; -webkit-appearance: none; 
   }
   .field input:focus, .field select:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px rgba(201,169,110,0.15); }
 
-  /* 手機版專用：品項卡片 (取代容易跑版的表格) */
+  /* 品項卡片優化 */
   .prod-item { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; }
   .prod-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .prod-item-qty { display: flex; align-items: center; justify-content: space-between; background: var(--cream); padding: 10px; border-radius: 6px; }
-  .prod-input { width: 80px !important; text-align: center; font-weight: 600; color: var(--gold-dark); border: 1px solid var(--gold) !important; }
+  .prod-item-qty { display: flex; align-items: center; justify-content: space-between; background: var(--cream); padding: 12px 15px; border-radius: 8px; margin-top: 10px;}
+  
+  /* ⭐️ 數量輸入框終極優化 ⭐️ */
+  .prod-input { 
+    width: 110px !important; /* 加大寬度 */
+    height: 48px; /* 增加手指點擊高度 */
+    text-align: center; 
+    font-weight: 700; 
+    font-size: 20px !important; /* 放大數字 */
+    color: var(--ink); 
+    background-color: #fff;
+    border: 2px solid var(--gold) !important; 
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+  }
+  .prod-input:focus {
+    border-color: var(--orange) !important;
+    box-shadow: 0 0 0 4px rgba(212, 98, 42, 0.15) !important;
+    outline: none;
+  }
   
   .btn-remove { color: #d4622a; background: none; border: none; font-size: 14px; cursor: pointer; padding: 5px; font-weight: 600; }
 
@@ -53,7 +72,7 @@
   .del-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
   .del-title { color: var(--ink); font-weight: 600; font-size: 17px; }
 
-  .qty-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #e5d8c5; }
+  .qty-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e5d8c5; gap: 15px;}
   .qty-row:last-child { border-bottom: none; }
 
   /* 按鈕 */
@@ -75,7 +94,6 @@
   }
   .btn-submit:disabled { background: #888; color: #ccc; cursor: not-allowed; }
 
-  /* 強制覆蓋全螢幕的遮罩 (解決跑版到底部的問題) */
   .overlay { 
     display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
     background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; flex-direction: column;
@@ -84,7 +102,6 @@
   .overlay-box { background: white; color: var(--ink); padding: 40px 30px; border-radius: 12px; text-align: center; width: 85%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
   .overlay-box h3 { margin-top: 0; color: var(--gold-dark); font-size: 22px; }
 
-  /* 桌面版雙欄配置 */
   @media (min-width: 768px) {
     .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .summary-bar { bottom: 90px; width: calc(100% - 40px); left: 20px; border-radius: 12px; }
@@ -113,8 +130,7 @@
 
   <section class="card">
     <div class="card-head"><span class="card-num">2</span><h2 class="card-title">訂購品項與總盒數</h2></div>
-    <div class="card-body" id="prod-container">
-      </div>
+    <div class="card-body" id="prod-container"></div>
     <div style="padding: 0 20px 20px 20px;">
       <button class="btn-add" onclick="addProd()">＋ 新增禮盒品項</button>
     </div>
@@ -122,13 +138,11 @@
 
   <section class="card">
     <div class="card-head"><span class="card-num">3</span><h2 class="card-title">配送點安排</h2></div>
-    <div class="card-body" id="delivery-container">
-      </div>
+    <div class="card-body" id="delivery-container"></div>
     <div style="padding: 0 20px 20px 20px;">
       <button class="btn-add" onclick="addDel()">＋ 新增配送點 (地址)</button>
     </div>
   </section>
-
 </main>
 
 <div class="summary-bar" id="summary">
@@ -152,7 +166,6 @@
 </div>
 
 <script>
-// ★ 請確認這裡是您最新的 GAS 網址
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
 
 const PRODUCT_LIST = [
@@ -182,28 +195,29 @@ function addDel() {
 }
 
 function render() {
-  // 渲染品項 (手機版卡片式)
+  // 渲染品項
   const pBody = document.getElementById('prod-container');
   pBody.innerHTML = products.map((p, idx) => {
-    const allocated = deliveries.reduce((sum, d) => sum + (d.items[p.id] || 0), 0);
+    const allocated = deliveries.reduce((sum, d) => sum + (Number(d.items[p.id]) || 0), 0);
     const pTotal = Number(p.total) || 0;
     const isOk = (allocated === pTotal && pTotal > 0);
     
     return `
       <div class="prod-item">
         <div class="prod-item-header">
-          <span style="font-weight:bold; color:var(--gold-dark);">品項 ${idx + 1}</span>
+          <span style="font-weight:bold; color:var(--gold-dark); font-size:16px;">品項 ${idx + 1}</span>
           <button class="btn-remove" onclick="removeP(${p.id})">移除 ✕</button>
         </div>
-        <select onchange="updateP(${p.id},'name',this.value)" style="width:100%; margin-bottom:10px; padding:12px; font-size:15px; border-radius:6px; border:1px solid #ccc;">
+        <select onchange="updateP(${p.id},'name',this.value)" style="width:100%; margin-bottom:10px; padding:14px; font-size:16px; border-radius:6px; border:1px solid #ccc;">
           ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
         </select>
-        ${p.name==='自定義' ? `<input type="text" placeholder="請輸入自定義品名" oninput="updateP(${p.id},'customName',this.value)" value="${p.customName}" style="width:100%; margin-bottom:10px; padding:12px; border:1px solid #ccc; border-radius:6px;">` : ''}
+        ${p.name==='自定義' ? `<input type="text" placeholder="請輸入自定義品名" oninput="updateP(${p.id},'customName',this.value)" value="${p.customName}" style="width:100%; margin-bottom:10px; padding:14px; font-size:16px; border:1px solid #ccc; border-radius:6px;">` : ''}
+        
         <div class="prod-item-qty">
-          <span style="font-size:14px; font-weight:600;">訂購總數</span>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span style="font-size:12px; color:${isOk?'#2d8a54':'#d4622a'}; font-weight:bold;">已分配: ${allocated}</span>
-            <input type="number" class="prod-input" value="${p.total}" placeholder="數量" oninput="updateP(${p.id},'total',this.value)">
+          <span style="font-size:15px; font-weight:600;">訂購總數</span>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span id="alloc-status-${p.id}" style="font-size:14px; color:${isOk?'#2d8a54':'#d4622a'}; font-weight:bold; letter-spacing:0.5px;">已分配: ${allocated}</span>
+            <input type="number" inputmode="numeric" pattern="[0-9]*" class="prod-input" value="${p.total}" placeholder="填數量" oninput="updateQty(${p.id},this.value)">
           </div>
         </div>
       </div>
@@ -222,14 +236,14 @@ function render() {
       <div class="field"><label>希望配送日期 *</label><input type="date" oninput="updateD(${d.id},'date',this.value)" value="${d.date}"></div>
       <div class="field"><label>完整地址 *</label><input type="text" oninput="updateD(${d.id},'address',this.value)" value="${d.address}" placeholder="請輸入完整收件地址"></div>
       
-      <div style="background:#fdfaf5; padding:15px; border-radius:6px; margin-top:15px; border: 1px solid #f0e6d2;">
-        <div style="font-size:13px; font-weight:bold; color:var(--ink-mid); margin-bottom:10px;">分配至此地址的盒數：</div>
+      <div style="background:#fdfaf5; padding:15px; border-radius:8px; margin-top:20px; border: 1px solid #f0e6d2;">
+        <div style="font-size:14px; font-weight:bold; color:var(--ink-mid); margin-bottom:12px;">請填寫分配至此地址的盒數：</div>
         ${products.map(p => {
           const pName = p.name==='自定義' ? (p.customName||'自定義品項') : p.name;
           return `
             <div class="qty-row">
-              <span style="font-size:15px; line-height:1.4; padding-right:10px;">${pName}</span>
-              <input type="number" class="prod-input" placeholder="0" oninput="updateDI(${d.id},${p.id},this.value)" value="${d.items[p.id]||''}">
+              <span style="font-size:16px; line-height:1.4; padding-right:10px; font-weight:500;">${pName}</span>
+              <input type="number" inputmode="numeric" pattern="[0-9]*" class="prod-input" placeholder="0" oninput="updateDelQty(${d.id},${p.id},this.value)" value="${d.items[p.id]||''}">
             </div>
           `;
         }).join('')}
@@ -240,11 +254,45 @@ function render() {
   updateSummary();
 }
 
-function updateP(id,f,v){ products.find(x=>x.id===id)[f]=v; render(); }
+/* ★ 分離更新邏輯，解決打字失去焦點的問題 ★ */
+function updateP(id, f, v) { 
+  products.find(x => x.id === id)[f] = v; 
+  render(); // 品名變動，需要重新渲染下方配送點的標籤
+}
+
+function updateQty(pid, v) {
+  // 只更新數據與文字，不重整畫面 (避免輸入中斷)
+  let p = products.find(x => x.id === pid);
+  p.total = v === '' ? '' : Number(v);
+  updateStatusUI(pid);
+  updateSummary();
+}
+
+function updateDelQty(did, pid, v) {
+  // 只更新數據與文字，不重整畫面 (避免輸入中斷)
+  deliveries.find(x => x.id === did).items[pid] = v === '' ? '' : Number(v);
+  updateStatusUI(pid);
+  updateSummary();
+}
+
+function updateStatusUI(pid) {
+  // 單獨更新「已分配」的文字顏色與數值
+  let p = products.find(x => x.id === pid);
+  if (!p) return;
+  let allocated = deliveries.reduce((sum, d) => sum + (Number(d.items[pid]) || 0), 0);
+  let pTotal = Number(p.total) || 0;
+  let isOk = (allocated === pTotal && pTotal > 0);
+  
+  let statusSpan = document.getElementById(`alloc-status-${pid}`);
+  if(statusSpan) {
+    statusSpan.innerText = `已分配: ${allocated}`;
+    statusSpan.style.color = isOk ? '#2d8a54' : '#d4622a';
+  }
+}
+
 function removeP(id){ products = products.filter(x=>x.id!==id); render(); }
 function updateD(id,f,v){ deliveries.find(x=>x.id===id)[f]=v; updateSummary(); }
 function removeD(id){ deliveries = deliveries.filter(x=>x.id!==id); render(); }
-function updateDI(did, pid, v) { deliveries.find(x=>x.id===did).items[pid] = v === '' ? '' : Number(v); updateSummary(); }
 
 function updateSummary() {
   const total = products.reduce((s,p)=>s + (Number(p.total)||0), 0);
@@ -255,7 +303,7 @@ function updateSummary() {
   const diffColor = diff === 0 && total > 0 ? '#4ade80' : '#f87171';
   
   document.getElementById('summary').innerHTML = `
-    <span>訂購總計: ${total}</span> 
+    <span>總盒數: ${total}</span> 
     <span>已分配: ${allocated}</span> 
     <span style="color:${diffColor};">待分配: ${diff}</span>
   `;
@@ -269,16 +317,14 @@ function updateSummary() {
   const isComplete = nameFilled && hasProducts && hasDeliveries && delAllFilled && (diff === 0);
   
   document.getElementById('btn-submit').disabled = !isComplete;
-  document.getElementById('btn-submit').innerText = isComplete ? '確認送出配送安排單' : '請完成所有資料填寫與數量分配';
+  document.getElementById('btn-submit').innerText = isComplete ? '確認送出配送安排單' : '請完成所有資料與數量分配';
 }
 
 async function submitForm() {
-  // 防止重複點擊
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
   document.getElementById('ov-loading').classList.add('show');
 
-  // 組裝資料 (確保 customerName 一定存在，解決 GAS 錯誤)
   const payload = {
     customerName: document.getElementById('cust-name').value.trim(),
     customerPhone: document.getElementById('cust-phone').value.trim(),
@@ -303,7 +349,6 @@ async function submitForm() {
   };
 
   try {
-    // 傳送至 GAS
     await fetch(GAS_URL, { 
       method: 'POST', 
       mode: 'no-cors',
@@ -311,7 +356,6 @@ async function submitForm() {
       body: JSON.stringify(payload) 
     });
     
-    // 成功畫面
     document.getElementById('ov-loading').classList.remove('show');
     document.getElementById('ov-success').classList.add('show');
   } catch (e) {
@@ -321,7 +365,6 @@ async function submitForm() {
   }
 }
 
-// 預設新增一筆品項與配送點
 addProd();
 addDel();
 </script>
