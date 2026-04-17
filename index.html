@@ -6,55 +6,175 @@
 <title>幸福+工場・配送調度系統</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #f9f6f2; --primary: #2c2416; --accent: #c9a96e; --text: #3d352a; --border: #e3ddd3; --orange: #d4622a; --green: #2d8a54; }
+  :root { 
+    --bg: #F7F5F0; 
+    --primary: #3B3327; 
+    --accent: #C9A96E; 
+    --accent-hover: #B5955A;
+    --text: #4A4036; 
+    --border: #E8E2D9; 
+    --orange: #E07A5F; 
+    --green: #4F8A65;
+    --card-bg: #FFFFFF;
+  }
   * { box-sizing: border-box; }
-  body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 240px; }
-  .header { background: var(--primary); padding: 25px; text-align: center; color: #fff; border-bottom: 6px solid var(--accent); }
+  body { 
+    font-family: 'Noto Sans TC', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    margin: 0; 
+    padding-bottom: 260px; 
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 頂部標題 */
+  .header { 
+    background: var(--primary); 
+    padding: 20px 15px; 
+    text-align: center; 
+    color: #fff; 
+    border-bottom: 5px solid var(--accent); 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .header h2 { margin: 0; font-size: 22px; letter-spacing: 1px; }
+  
   .wrapper { max-width: 800px; margin: 0 auto; padding: 0 15px; }
-  .main-card { background: #fff; border-radius: 12px; border: 1px solid var(--border); padding: 15px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-  .date-group { background: #fff; border-radius: 12px; border: 1px solid var(--border); margin-top: 25px; overflow: hidden; }
-  .date-head { background: #fcfaf7; padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .place-card { margin: 12px; padding: 15px; background: #fff; border: 1px solid var(--border); border-radius: 8px; border-left: 5px solid var(--accent); }
-  input, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 16px; margin-bottom: 8px; }
-  .qty-field { width: 80px !important; text-align: center; font-weight: 700; border: 2px solid var(--accent) !important; margin-bottom: 0; }
-  .btn-ghost { background: transparent; border: 2px dashed var(--accent); color: var(--accent); padding: 12px; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-  .footer-summary { background: var(--primary); padding: 20px; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; border-top: 4px solid var(--accent); }
-  .status-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 15px; }
-  .pill { padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; color: #fff; }
+  
+  /* 卡片優化 */
+  .main-card, .date-group { 
+    background: var(--card-bg); 
+    border-radius: 16px; 
+    border: 1px solid var(--border); 
+    padding: 20px; 
+    margin-top: 20px; 
+    box-shadow: 0 6px 16px rgba(59, 51, 39, 0.05); 
+  }
+  .date-group { padding: 0; overflow: hidden; }
+  .date-head { 
+    background: #FAFAF7; 
+    padding: 16px 20px; 
+    border-bottom: 1px solid var(--border); 
+    display: flex; justify-content: space-between; align-items: center; 
+  }
+  .place-card { 
+    margin: 15px; padding: 18px; 
+    background: #FAFAF7; 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    border-left: 6px solid var(--accent); 
+  }
+  
+  /* 輸入框優化 (16px 防止 iOS 縮放) */
+  input, select { 
+    width: 100%; padding: 14px; 
+    border: 1px solid #D6D0C4; 
+    border-radius: 10px; 
+    font-size: 16px; 
+    font-family: inherit;
+    margin-bottom: 10px; 
+    background: #fff;
+    transition: all 0.2s ease;
+  }
+  input:focus, select:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
+  }
+  input::placeholder { color: #A0998F; }
+  
+  .input-label { font-size: 13px; font-weight: 700; color: #8A7E6E; margin-bottom: 6px; display: block; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 5px; }
+  
+  .qty-field { width: 85px !important; text-align: center; font-weight: 700; border: 2px solid var(--accent) !important; color: var(--primary); margin-bottom: 0; }
+  
+  /* 按鈕優化 */
+  button { font-family: inherit; transition: all 0.2s; }
+  button:active { transform: scale(0.98); }
+  
+  .btn-ghost { 
+    background: transparent; border: 2px dashed var(--accent); color: var(--accent); 
+    padding: 14px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: 700; 
+    cursor: pointer; margin-top: 10px; 
+  }
+  .btn-ghost:hover { background: rgba(201, 169, 110, 0.05); }
+  
+  .btn-remove { border: none; background: #FFF0F0; color: #E05F5F; padding: 8px 12px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .btn-remove-text { border: none; background: transparent; color: #E05F5F; font-size: 14px; font-weight: 700; padding: 5px; }
+
+  /* 底部狀態區優化 */
+  .footer-summary { 
+    background: #FFF; padding: 20px; 
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    z-index: 1000; 
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+  }
+  .status-pills { 
+    display: flex; flex-wrap: nowrap; overflow-x: auto; 
+    gap: 8px; margin-bottom: 15px; padding-bottom: 5px;
+    /* 隱藏卷軸 */
+    -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .status-pills::-webkit-scrollbar { display: none; }
+  
+  .pill { 
+    padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; color: #fff; 
+    white-space: nowrap; flex-shrink: 0;
+  }
   .pill-ok { background: var(--green); }
   .pill-wait { background: var(--orange); }
-  .btn-primary { width: 100%; max-width: 400px; padding: 16px; background: var(--accent); color: #fff; border: none; border-radius: 50px; font-size: 18px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; }
+  
+  .btn-primary { 
+    width: 100%; max-width: 450px; padding: 18px; 
+    background: var(--accent); color: #fff; 
+    border: none; border-radius: 50px; font-size: 18px; font-weight: 700; 
+    cursor: pointer; display: block; margin: 0 auto; 
+    box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+  }
+  .btn-primary:disabled { background: #D6D0C4; box-shadow: none; cursor: not-allowed; transform: none; }
+  
+  /* 列表內品項設計 */
+  .prod-row { background: #FAFAF7; border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-bottom: 12px; }
+  .flex-center { display: flex; gap: 10px; align-items: center; }
 </style>
 </head>
 <body>
 
-<header class="header"><h2 style="margin:0;">配送安排調度系統</h2></header>
+<header class="header"><h2>幸福+工場・配送調度</h2></header>
 
 <div class="wrapper">
   <div class="main-card">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
-      <div><small>訂購人姓名 *</small><input type="text" id="cust-name" oninput="syncCustData()"></div>
-      <div><small>聯絡電話</small><input type="tel" id="cust-phone" oninput="syncCustData()"></div>
+    <div class="grid-2">
+      <div><span class="input-label">訂購人姓名 *</span><input type="text" id="cust-name" placeholder="請輸入姓名" oninput="syncCustData()"></div>
+      <div><span class="input-label">聯絡電話 *</span><input type="tel" id="cust-phone" placeholder="09XX..." oninput="syncCustData()"></div>
     </div>
-    <div id="main-prod-list"></div>
-    <button class="btn-ghost" onclick="addMainProd()">＋ 新增產品品項</button>
+    <div id="main-prod-list" style="margin-top: 10px;"></div>
+    <button class="btn-ghost" onclick="addMainProd()">＋ 新增產品總量</button>
   </div>
+
   <div id="date-group-container"></div>
-  <button class="btn-ghost" style="background:var(--primary); color:white; margin-bottom:100px;" onclick="addDateGroup()">＋ 新增配送日期</button>
+  <button class="btn-ghost" style="background:var(--primary); color:white; border:none; margin-top:25px;" onclick="addDateGroup()">＋ 建立新配送日期</button>
 </div>
 
 <div class="footer-summary">
   <div class="status-pills" id="summary-pills"></div>
-  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫必要資訊</button>
+  <button class="btn-primary" id="btn-submit" onclick="submitForm()" disabled>請填寫基本資訊</button>
 </div>
 
-<div id="ov-loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; color:#fff; align-items:center; justify-content:center;">
-  <div id="loading-msg"><h2>傳送中...</h2></div>
+<div id="ov-loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(59,51,39,0.9); z-index:9999; color:#fff; align-items:center; justify-content:center; flex-direction:column;">
+  <div class="spinner" style="border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--accent); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom:15px;"></div>
+  <h2 id="loading-msg" style="margin:0;">資料傳送中...</h2>
 </div>
+<style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
 const PRODUCT_LIST = ["星空不來梅．單層綜果款", "星空不來梅．雙層綜果款", "星空不來梅．單層吃茶款", "星空不來梅．雙層吃茶款", "美好時光．雙層綜合款(餅乾+鳳梨酥+長蛋2)", "美好時光．雙層綜合款(12長蛋餅鳳款)", "美好時光．單層餅乾蛋捲款", "美好時光．單層蛋捲款", "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款", "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層", "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥", "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組", "Wonderful World．精彩世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組", "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)", "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)", "星空．幸福+蛋捲鐵盒(小農)", "星空．幸福+蛋捲鐵盒(經典)", "蛋捲．家庭分享包", "核你同頻綠．中式漢餅", "自定義"];
+
+// 🧧 在此設定台灣國定假日 (YYYY-MM-DD 格式)，您後續可自行增減
+const HOLIDAYS = [
+  "2026-01-01", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20",
+  "2026-02-27", "2026-04-03", "2026-04-06", "2026-05-01", "2026-06-19", "2026-09-25", "2026-10-09"
+];
 
 let customerData = { name: '', phone: '' };
 let mainProducts = [];
@@ -82,18 +202,46 @@ function addAddress(gId) {
   render();
 }
 
+// 📅 日期驗證邏輯（阻擋六日與假日）
+function checkDateValid(inputElement, gId) {
+  if(!inputElement.value) {
+    dateGroups.find(x=>x.id===gId).date = "";
+    updateSummary();
+    return;
+  }
+  
+  const d = new Date(inputElement.value);
+  const dayOfWeek = d.getDay(); // 0=日, 6=六
+  const dateStr = inputElement.value;
+
+  if(dayOfWeek === 0 || dayOfWeek === 6) {
+    alert("❌ 系統限制：週末（星期六、星期日）無法提供配送服務，請選擇平日。");
+    inputElement.value = "";
+    dateGroups.find(x=>x.id===gId).date = "";
+  } else if (HOLIDAYS.includes(dateStr)) {
+    alert("❌ 系統限制：您選擇的日期為國定/連續假日，無法提供配送服務，請重選。");
+    inputElement.value = "";
+    dateGroups.find(x=>x.id===gId).date = "";
+  } else {
+    // 日期合法，存入資料
+    dateGroups.find(x=>x.id===gId).date = inputElement.value;
+  }
+  updateSummary();
+}
+
 function render() {
   const mList = document.getElementById('main-prod-list');
   mList.innerHTML = mainProducts.map(p => `
-    <div style="background:#fdfbf8; border:1px solid #eee; padding:10px; border-radius:8px; margin-bottom:10px;">
-      <div style="display:flex; gap:5px; align-items:center;">
+    <div class="prod-row">
+      <div class="input-label">選擇產品</div>
+      <div class="flex-center">
         <select style="flex:1; margin-bottom:0;" onchange="mainProducts.find(m=>m.id===${p.id}).name=this.value; render();">
           ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
         </select>
-        <input type="number" min="1" step="1" class="qty-field" placeholder="總數" value="${p.totalQty}" oninput="mainProducts.find(m=>m.id===${p.id}).totalQty=Math.abs(Math.floor(this.value)) || ''; updateSummary();">
-        <button onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id}); render();" style="border:none;background:none;color:red;font-size:18px;">✕</button>
+        <input type="number" min="1" step="1" class="qty-field" placeholder="總數量" value="${p.totalQty}" oninput="mainProducts.find(m=>m.id===${p.id}).totalQty=Math.abs(Math.floor(this.value)) || ''; updateSummary();">
+        <button class="btn-remove-text" onclick="mainProducts=mainProducts.filter(x=>x.id!==${p.id}); render();">✕</button>
       </div>
-      ${p.name==='自定義'?`<input type="text" placeholder="輸入產品名" style="margin-top:5px;" value="${p.customName}" oninput="mainProducts.find(m=>m.id===${p.id}).customName=this.value; updateSummary();">`:''}
+      ${p.name==='自定義'?`<input type="text" placeholder="請手動輸入產品名稱" style="margin-top:10px; margin-bottom:0;" value="${p.customName}" oninput="mainProducts.find(m=>m.id===${p.id}).customName=this.value; updateSummary();">`:''}
     </div>
   `).join('');
 
@@ -101,28 +249,36 @@ function render() {
   gContainer.innerHTML = dateGroups.map(g => `
     <div class="date-group">
       <div class="date-head">
-        <input type="date" value="${g.date}" onchange="dateGroups.find(x=>x.id===${g.id}).date=this.value; updateSummary();" style="width:160px; margin:0;">
-        <button onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id}); render();" style="border:none;background:none;color:red;">移除日期</button>
+        <div style="flex:1;">
+          <span class="input-label" style="margin-bottom:4px;">指定到貨日期</span>
+          <input type="date" value="${g.date}" onchange="checkDateValid(this, ${g.id})" style="width:180px; margin:0; padding:10px;">
+        </div>
+        <button class="btn-remove" onclick="dateGroups=dateGroups.filter(x=>x.id!==${g.id}); render();">刪除此日</button>
       </div>
       ${g.addresses.map((a, idx) => `
         <div class="place-card">
-          <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><b>地點 ${idx+1}</b> <button onclick="let tg=dateGroups.find(x=>x.id===${g.id}); tg.addresses=tg.addresses.filter(x=>x.id!==${a.id}); render();" style="border:none;background:none;color:red;font-size:12px;">移除</button></div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <input type="text" placeholder="收件人" value="${a.receiver}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).receiver=this.value; updateSummary();">
-            <input type="tel" placeholder="電話" value="${a.rPhone}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).rPhone=this.value; updateSummary();">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <b style="color:var(--primary); font-size:16px;">配送地點 ${idx+1}</b> 
+            <button class="btn-remove-text" onclick="let tg=dateGroups.find(x=>x.id===${g.id}); tg.addresses=tg.addresses.filter(x=>x.id!==${a.id}); render();">移除地點</button>
           </div>
-          <input type="text" placeholder="配送地址" value="${a.address}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).address=this.value; updateSummary();">
-          <div style="margin-top:5px; border-top:1px solid #eee; padding-top:10px;">
+          <div class="grid-2">
+            <input type="text" placeholder="收件人姓名" value="${a.receiver}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).receiver=this.value; updateSummary();">
+            <input type="tel" placeholder="收件人電話" value="${a.rPhone}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).rPhone=this.value; updateSummary();">
+          </div>
+          <input type="text" placeholder="完整配送地址" value="${a.address}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).address=this.value; updateSummary();">
+          
+          <div style="margin-top:10px; border-top:2px dashed #E8E2D9; padding-top:15px;">
+            <div class="input-label" style="margin-bottom:10px;">請填寫此地配送數量：</div>
             ${mainProducts.map(p => `
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                <span style="font-size:12px; color:#666;">${p.name==='自定義'? (p.customName||'自定義') : p.name}</span>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #E8E2D9;">
+                <span style="font-size:14px; font-weight:500; color:var(--primary); flex:1; padding-right:10px;">${p.name==='自定義'? (p.customName||'未命名自定義') : p.name}</span>
                 <input type="number" min="0" step="1" class="qty-field" placeholder="0" value="${a.items[p.id]||''}" oninput="dateGroups.find(g2=>g2.id===${g.id}).addresses.find(a2=>a2.id===${a.id}).items[${p.id}]=Math.abs(Math.floor(this.value)) || ''; updateSummary();">
               </div>
             `).join('')}
           </div>
         </div>
       `).join('')}
-      <button class="btn-ghost" style="width:calc(100% - 24px); margin:12px;" onclick="addAddress(${g.id})">＋ 此日新增配送地</button>
+      <button class="btn-ghost" style="width:calc(100% - 30px); margin:0 15px 15px 15px; border-color:var(--border); color:#8A7E6E;" onclick="addAddress(${g.id})">＋ 同日新增其他地點</button>
     </div>
   `).join('');
   updateSummary();
@@ -139,32 +295,33 @@ function updateSummary() {
     dateGroups.forEach(g => g.addresses.forEach(a => { current += parseInt(a.items[p.id]) || 0; }));
     const ok = (target > 0 && target === current);
     if (!ok) allMatched = false;
-    const pName = p.name==='自定義' ? (p.customName || '品項') : p.name;
-    return `<span class="pill ${ok ? 'pill-ok' : 'pill-wait'}">${pName}: ${current}/${target}</span>`;
+    const pName = p.name==='自定義' ? (p.customName || '未命名') : p.name;
+    // 只顯示品項前四個字避免太長
+    const shortName = pName.length > 5 ? pName.substring(0,5) + '...' : pName;
+    return `<span class="pill ${ok ? 'pill-ok' : 'pill-wait'}">${shortName} ${current}/${target}</span>`;
   }).join('');
 
-  const nameOk = customerData.name.trim() !== "";
+  const nameOk = customerData.name.trim() !== "" && customerData.phone.trim() !== "";
   const dateOk = dateGroups.length > 0 && dateGroups.every(g => g.date !== "");
   const addrOk = dateGroups.every(g => g.addresses.every(a => a.receiver.trim() !== "" && a.address.trim() !== ""));
 
   if (nameOk && dateOk && addrOk) {
     btn.disabled = false;
-    btn.innerText = allMatched ? "確認送出單據" : "盒數未對齊，確認送出？";
+    btn.innerText = allMatched ? "數量正確，確認送出單據" : "盒數未對齊，強制送出？";
     btn.style.background = allMatched ? "var(--green)" : "var(--orange)";
   } else {
     btn.disabled = true;
-    btn.innerText = "請填寫姓名、日期與收件地";
-    btn.style.background = "#555";
+    btn.innerText = "請完成姓名、電話與所有日期地點";
+    btn.style.background = "#D6D0C4";
   }
 }
 
 async function submitForm() {
   const btn = document.getElementById('btn-submit');
-  if(btn.innerText.includes("未對齊")) { if(!confirm("盒數分配尚未對齊，確定要送出嗎？")) return; }
+  if(btn.innerText.includes("未對齊")) { if(!confirm("您分配的盒數與總量不符，確定要送出嗎？")) return; }
   
   document.getElementById('ov-loading').style.display = 'flex';
   
-  // 關鍵修正：在電話前面補一個 ' 強制試算表當文字處理，避免開頭的 0 被刪除
   const payload = {
     customer: customerData.name,
     phone: (customerData.phone.startsWith("'") ? customerData.phone : "'" + customerData.phone),
@@ -177,7 +334,7 @@ async function submitForm() {
         });
         return { 
           receiver: a.receiver, 
-          phone: (a.rPhone.startsWith("'") ? a.rPhone : "'" + a.rPhone), // 強制文字格式
+          phone: (a.rPhone.startsWith("'") ? a.rPhone : "'" + a.rPhone), 
           address: a.address, 
           items: items 
         };
@@ -188,13 +345,19 @@ async function submitForm() {
   try {
     await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
     setTimeout(() => {
-      document.getElementById('loading-msg').innerHTML = `<h2 style="color:var(--green)">發送成功！</h2><button onclick="location.reload()" style="padding:10px 30px;background:white;border:none;border-radius:20px;margin-top:10px;cursor:pointer;">回首頁</button>`;
+      document.querySelector('.spinner').style.display = 'none';
+      document.getElementById('loading-msg').innerHTML = `
+        <span style="font-size:50px; display:block; margin-bottom:10px;">🎉</span>
+        <h2 style="color:var(--accent); margin:0;">發送成功！</h2>
+        <button onclick="location.reload()" style="padding:14px 40px; background:var(--accent); color:white; font-weight:bold; font-size:16px; border:none; border-radius:30px; margin-top:20px; cursor:pointer;">填寫下一筆</button>
+      `;
     }, 1500);
   } catch(e) {
-    alert("發送失敗。");
+    alert("發送失敗，請檢查網路連線。");
     document.getElementById('ov-loading').style.display = 'none';
   }
 }
+
 addMainProd();
 </script>
 </body>
