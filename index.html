@@ -11,75 +11,65 @@
     --ink: #2c2416; --ink-mid: #6b5840; --border: #e5d8c5; --orange: #d4622a;
     --sans: 'Noto Sans TC', sans-serif; --serif: 'Noto Serif TC', serif;
   }
-  body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.6; margin: 0; padding-bottom: 120px; }
   
-  /* 標頭美化 */
-  .header { background: var(--ink); padding: 50px 20px; text-align: center; color: #fff8ee; border-bottom: 4px solid var(--gold); }
-  .header-badge { display: inline-block; font-family: var(--serif); font-size: 11px; letter-spacing: 4px; color: var(--gold); border: 1px solid rgba(201,169,110,0.3); padding: 5px 20px; margin-bottom: 15px; text-transform: uppercase; }
-  .header h1 { font-family: var(--serif); font-size: 28px; margin: 0; font-weight: 600; letter-spacing: 2px; }
-  .header h1 em { font-style: normal; color: var(--gold); margin-left: 10px; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.8; margin: 0; padding-bottom: 150px; }
 
-  .container { max-width: 880px; margin: -30px auto 0; padding: 0 20px; }
-  
-  /* 卡片設計 */
-  .card { background: var(--warm); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(44,36,22,0.05); overflow: hidden; }
-  .card-head { background: var(--ink); padding: 15px 25px; display: flex; align-items: center; gap: 12px; color: #fff8ee; }
-  .card-num { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
-  .card-title { font-size: 15px; font-weight: 500; letter-spacing: 1px; margin: 0; }
-  .card-body { padding: 25px; }
+  /* 標頭：大氣洗鍊 */
+  .header { background: var(--ink); padding: 60px 20px; text-align: center; color: #fff8ee; border-bottom: 5px solid var(--gold); }
+  .header-badge { display: inline-block; font-family: var(--serif); font-size: 14px; letter-spacing: 5px; color: var(--gold); border: 1px solid rgba(201,169,110,0.4); padding: 8px 24px; margin-bottom: 20px; }
+  .header h1 { font-family: var(--serif); font-size: 32px; margin: 0; letter-spacing: 3px; }
+  .header h1 em { font-style: normal; color: var(--gold); margin-left: 12px; }
 
-  /* 表單元素 */
-  .field { margin-bottom: 20px; }
-  .field label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--ink-mid); }
+  .container { max-width: 900px; margin: -40px auto 0; padding: 0 25px; }
+
+  /* 卡片：寬敞間距 */
+  .card { background: var(--warm); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 35px; box-shadow: 0 6px 20px rgba(44,36,22,0.08); overflow: hidden; }
+  .card-head { background: var(--ink); padding: 20px 30px; display: flex; align-items: center; gap: 15px; color: #fff8ee; }
+  .card-num { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
+  .card-title { font-size: 18px; font-weight: 500; letter-spacing: 1.5px; margin: 0; }
+  .card-body { padding: 35px; }
+
+  /* 表單欄位：加大尺寸 */
+  .field { margin-bottom: 25px; }
+  .field label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--ink); }
   .field input, .field select, .field textarea { 
-    width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 4px; 
-    font-size: 15px; transition: all 0.3s; background: #fff; box-sizing: border-box;
+    width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: 6px; 
+    font-size: 16px; background: #fff; box-sizing: border-box; transition: 0.3s;
   }
-  .field input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px rgba(201,169,110,0.1); }
+  .field input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 4px rgba(201,169,110,0.1); }
 
-  /* 品項表格 */
-  .prod-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-  .prod-table th { text-align: left; font-size: 12px; color: var(--ink-light); padding: 10px; border-bottom: 1px solid var(--border); }
-  .prod-table td { padding: 12px 10px; border-bottom: 1px solid #eee; }
-  
-  /* 配送點卡片 */
-  .del-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; position: relative; }
-  .del-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
-  .del-title { color: var(--gold-dark); font-weight: 600; font-size: 15px; }
-  
-  .qty-alloc-box { background: var(--cream); border-radius: 4px; padding: 15px; margin-top: 15px; }
-  .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed #e5d8c5; }
+  /* 品項表格：寬度調整 */
+  .prod-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .prod-table th { text-align: left; font-size: 14px; color: var(--ink-mid); padding: 15px 10px; border-bottom: 2px solid var(--border); }
+  .prod-table td { padding: 20px 10px; border-bottom: 1px solid #eee; }
+
+  /* 配送點：卡片式 */
+  .del-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 30px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+  .del-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0; }
+  .del-title { color: var(--gold-dark); font-weight: 600; font-size: 18px; }
+
+  /* 數量分配區：大格手填 */
+  .qty-alloc-box { background: var(--cream); border-radius: 8px; padding: 20px; margin-top: 20px; border: 1px solid #eee; }
+  .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px dashed #e5d8c5; }
   .qty-row:last-child { border-bottom: none; }
+  .qty-input { width: 100px !important; text-align: center; font-weight: 600; color: var(--gold-dark); }
 
-  /* 按鈕 */
-  .btn-add { 
-    background: #fff; border: 1.5px dashed var(--gold); color: var(--gold-dark); 
-    padding: 12px; width: 100%; cursor: pointer; border-radius: 4px; font-weight: 600; 
-    transition: 0.2s; font-size: 14px;
-  }
+  /* 按鈕設計 */
+  .btn-add { background: #fff; border: 2px dashed var(--gold); color: var(--gold-dark); padding: 15px; width: 100%; cursor: pointer; border-radius: 8px; font-weight: 600; font-size: 16px; margin-top: 10px; transition: 0.2s; }
   .btn-add:hover { background: var(--warm); border-style: solid; }
-  
-  .summary-bar { 
-    background: var(--ink); color: var(--gold); padding: 20px; border-radius: 8px; 
-    display: flex; justify-content: space-around; align-items: center; 
-    margin: 30px 0; border: 1px solid var(--gold); position: sticky; bottom: 90px; z-index: 100;
-  }
-  
-  .btn-submit { 
-    width: 100%; padding: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); 
-    color: white; border: none; font-size: 18px; cursor: pointer; font-weight: 600; 
-    letter-spacing: 4px; border-radius: 8px; box-shadow: 0 4px 15px rgba(44,36,22,0.2);
-  }
-  .btn-submit:disabled { background: #bbb; cursor: not-allowed; box-shadow: none; }
 
-  .status-tag { font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
+  .summary-bar { background: var(--ink); color: var(--gold); padding: 25px; border-radius: 12px; display: flex; justify-content: space-around; align-items: center; margin: 40px 0; border: 1px solid var(--gold); font-size: 18px; font-weight: bold; position: sticky; bottom: 100px; z-index: 100; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+  
+  .btn-submit { width: 100%; padding: 25px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: white; border: none; font-size: 20px; cursor: pointer; font-weight: 600; letter-spacing: 6px; border-radius: 10px; box-shadow: 0 8px 25px rgba(44,36,22,0.3); }
+  .btn-submit:disabled { background: #bbb; cursor: not-allowed; box-shadow: none; opacity: 0.5; }
+
+  .status-tag { font-size: 14px; padding: 4px 12px; border-radius: 20px; font-weight: 500; }
   .status-err { background: #ffdada; color: #d4622a; }
   .status-ok { background: #d4f4e2; color: #2d8a54; }
 
-  /* 遮罩 */
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); color: white; align-items: center; justify-content: center; z-index: 2000; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); color: white; align-items: center; justify-content: center; z-index: 2000; }
   .overlay.show { display: flex; }
-  .overlay-box { background: white; color: var(--ink); padding: 40px; border-radius: 12px; text-align: center; max-width: 300px; }
+  .overlay-box { background: white; color: var(--ink); padding: 50px; border-radius: 15px; text-align: center; }
 </style>
 </head>
 <body>
@@ -93,19 +83,19 @@
   <section class="card">
     <div class="card-head"><span class="card-num">1</span><h2 class="card-title">訂購人基本資料</h2></div>
     <div class="card-body">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <div class="field"><label>訂購人姓名 *</label><input type="text" id="cust-name" oninput="updateSummary()"></div>
-        <div class="field"><label>聯絡電話 *</label><input type="tel" id="cust-phone"></div>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px;">
+        <div class="field"><label>訂購人姓名 *</label><input type="text" id="cust-name" oninput="updateSummary()" placeholder="填寫單位或個人姓名"></div>
+        <div class="field"><label>聯絡電話 *</label><input type="tel" id="cust-phone" placeholder="例：0912345678"></div>
       </div>
-      <div class="field"><label>備註說明</label><textarea id="cust-note" rows="2"></textarea></div>
+      <div class="field"><label>備註說明</label><textarea id="cust-note" rows="3" placeholder="如有其他需求請在此備註"></textarea></div>
     </div>
   </section>
 
   <section class="card">
-    <div class="card-head"><span class="card-num">2</span><h2 class="card-title">已訂購品項與總盒數</h2></div>
+    <div class="card-head"><span class="card-num">2</span><h2 class="card-title">已訂購品項與數量</h2></div>
     <div class="card-body">
       <table class="prod-table">
-        <thead><tr><th>品項名稱</th><th style="width:100px;">總盒數</th><th style="width:120px;">配送進度</th><th style="width:40px;"></th></tr></thead>
+        <thead><tr><th>品項名稱</th><th style="width:120px;">訂購總數</th><th style="width:140px;">分配狀態</th><th style="width:50px;"></th></tr></thead>
         <tbody id="prod-body"></tbody>
       </table>
       <button class="btn-add" onclick="addProd()">＋ 新增禮盒品項</button>
@@ -116,21 +106,21 @@
     <div class="card-head"><span class="card-num">3</span><h2 class="card-title">配送點安排</h2></div>
     <div class="card-body">
       <div id="delivery-list"></div>
-      <button class="btn-add" onclick="addDel()">＋ 新增配送點 (地址)</button>
+      <button class="btn-add" onclick="addDel()">＋ 新增配送點 (收件地址)</button>
     </div>
   </section>
 
   <div class="summary-bar" id="summary"></div>
   
   <button class="btn-submit" id="btn-submit" onclick="submitForm()" disabled>確認送出配送安排單</button>
-  <p id="error-hint" style="text-align:center; color:var(--orange); font-size:13px; margin-top:10px; font-weight:500;">請先填寫姓名並分配完所有盒數</p>
+  <p id="error-hint" style="text-align:center; color:var(--orange); font-size:15px; margin-top:15px; font-weight:500;">請完整填寫姓名、地址，並確認待分配數量為 0</p>
 </main>
 
-<div class="overlay" id="ov-loading"><div class="overlay-box"><h3>傳送中...</h3><p>正在同步資料至試算表</p></div></div>
-<div class="overlay" id="ov-success"><div class="overlay-box"><h3>✓ 送出成功</h3><p>已收到您的配送安排，謝謝！</p><button onclick="location.reload()" style="margin-top:20px; padding:8px 20px; cursor:pointer; background:var(--gold); border:none; color:white; border-radius:4px;">重新填寫</button></div></div>
+<div class="overlay" id="ov-loading"><div class="overlay-box"><h2>傳送中...</h2><p>正在為您同步資料至雲端試算表</p></div></div>
+<div class="overlay" id="ov-success"><div class="overlay-box"><h2>✓ 送出成功</h2><p>感謝您的安排，業務人員將儘速處理。</p><button onclick="location.reload()" style="margin-top:25px; padding:12px 30px; cursor:pointer; background:var(--gold); border:none; color:white; border-radius:6px; font-size:16px;">關閉並重新填寫</button></div></div>
 
 <script>
-// ★ 請在此更換為您的新版 GAS 網址
+// ★ 請確保此處為您的 GAS 網址
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby6Qj3UxB2dB0FR8mbWidJ8tWD8XrmXIyPuwUM6TFLZnY-Q393PsdTeD4AiOQK_PoDs/exec';
 
 const PRODUCT_LIST = [
@@ -139,7 +129,7 @@ const PRODUCT_LIST = [
   "花獻．餅乾款", "花獻．餅乾蛋捲款", "小協奏禮盒．餅乾款", "小協奏禮盒．餅乾蛋捲款",
   "幸福花磚．綜合款雙層", "幸福花磚．餅乾款雙層", "幸福花磚．綜合款三層",
   "Happy Together．16支蛋捲餅乾款", "Happy Together．8支蛋捲綜合款", "Happy Together．8入土鳳梨酥",
-  "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組",
+  "一起幸福吧．麵包樹聯名", "美好夢想．A餅鳳款", "美好夢想．B綜合款", "美好夢想．C餅蛋款", "美好夢想S．餅乾蛋捲組",
   "Wonderful World．精采世界", "愛麗絲夢遊仙境．蛋捲組", "愛麗絲夢遊仙境．蛋捲餅乾組",
   "星空．幸福+蛋捲鐵盒(芝麻)", "星空．幸福+蛋捲鐵盒(咖啡)", "星空．幸福+蛋捲鐵盒(巧克力)", "星空．幸福+蛋捲鐵盒(原味)",
   "星空．幸福+蛋捲鐵盒(香蕉)", "星空．幸福+蛋捲鐵盒(紅茶)", "星空．幸福+蛋捲鐵盒(抹茶)", "星空．幸福+蛋捲鐵盒(紅藜)",
@@ -160,7 +150,6 @@ function addDel() {
 }
 
 function render() {
-  // 1. 渲染品項表格
   const pBody = document.getElementById('prod-body');
   pBody.innerHTML = products.map(p => {
     const allocated = deliveries.reduce((sum, d) => sum + (d.items[p.id] || 0), 0);
@@ -171,36 +160,35 @@ function render() {
           <select onchange="updateP(${p.id},'name',this.value)" style="width:100%">
             ${PRODUCT_LIST.map(opt => `<option value="${opt}" ${p.name===opt?'selected':''}>${opt}</option>`).join('')}
           </select>
-          ${p.name==='自定義' ? `<input type="text" placeholder="請輸入名稱" oninput="updateP(${p.id},'customName',this.value)" value="${p.customName}" style="margin-top:5px;">` : ''}
+          ${p.name==='自定義' ? `<input type="text" placeholder="輸入名稱" oninput="updateP(${p.id},'customName',this.value)" value="${p.customName}" style="margin-top:8px;">` : ''}
         </td>
-        <td><input type="number" value="${p.total||''}" oninput="updateP(${p.id},'total',+this.value)" style="width:80px"></td>
+        <td><input type="number" class="qty-input" value="${p.total||''}" oninput="updateP(${p.id},'total',+this.value)"></td>
         <td><span class="status-tag ${isOk?'status-ok':'status-err'}">${allocated} / ${p.total}</span></td>
-        <td><button onclick="removeP(${p.id})" style="border:none;color:#ccc;background:none;cursor:pointer;">✕</button></td>
+        <td><button onclick="removeP(${p.id})" style="border:none;color:#bbb;background:none;cursor:pointer;font-size:18px;">✕</button></td>
       </tr>
     `;
   }).join('');
 
-  // 2. 渲染配送點卡片
   const dList = document.getElementById('delivery-list');
   dList.innerHTML = deliveries.map((d, idx) => `
     <div class="del-card">
       <div class="del-header">
         <span class="del-title">📍 配送點 ${idx+1}</span>
-        <button onclick="removeD(${d.id})" style="color:var(--orange);border:none;background:none;cursor:pointer;font-size:12px;">移除此點</button>
+        <button onclick="removeD(${d.id})" style="color:var(--orange);border:none;background:none;cursor:pointer;font-weight:600;">移除配送點</button>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
-        <div class="field"><label>收件姓名 *</label><input type="text" oninput="updateD(${d.id},'name',this.value)" value="${d.name}"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:25px;">
+        <div class="field"><label>收件姓名 *</label><input type="text" oninput="updateD(${d.id},'name',this.value)" value="${d.name}" placeholder="收件人姓名"></div>
         <div class="field"><label>希望配送日期 *</label><input type="date" oninput="updateD(${d.id},'date',this.value)" value="${d.date}"></div>
       </div>
-      <div class="field"><label>配送地址 *</label><input type="text" oninput="updateD(${d.id},'address',this.value)" value="${d.address}"></div>
+      <div class="field"><label>完整配送地址 *</label><input type="text" oninput="updateD(${d.id},'address',this.value)" value="${d.address}" placeholder="例：台北市... 5樓"></div>
       <div class="qty-alloc-box">
-        <label style="font-size:12px;font-weight:bold;margin-bottom:10px;display:block;">分配此點的盒數：</label>
+        <label style="font-size:14px;font-weight:bold;margin-bottom:15px;display:block;">此地址配送盒數 (手動輸入)：</label>
         ${products.map(p => {
-          const pName = p.name==='自定義' ? (p.customName||'自定義') : p.name;
+          const pName = p.name==='自定義' ? (p.customName||'自定義品項') : p.name;
           return `
             <div class="qty-row">
-              <span style="font-size:13px;color:var(--ink-mid);">${pName}</span>
-              <input type="number" style="width:70px;padding:5px;" oninput="updateDI(${d.id},${p.id},+this.value)" value="${d.items[p.id]||''}">
+              <span style="font-size:15px;color:var(--ink-mid);">${pName}</span>
+              <input type="number" class="qty-input" oninput="updateDI(${d.id},${p.id},+this.value)" value="${d.items[p.id]||''}">
             </div>
           `;
         }).join('')}
@@ -224,7 +212,7 @@ function updateSummary() {
 
   const sDiv = document.getElementById('summary');
   sDiv.innerHTML = `
-    <div>訂購總數: ${total}</div>
+    <div>訂購總計: ${total}</div>
     <div>已分配: ${allocated}</div>
     <div style="color:${diff===0?'#fff':'#f66'}">待分配: ${diff}</div>
   `;
@@ -259,7 +247,7 @@ async function submitForm() {
     document.getElementById('ov-loading').classList.remove('show');
     document.getElementById('ov-success').classList.add('show');
   } catch (e) {
-    alert('網路連線失敗，請檢查後再試一次');
+    alert('網路異常，請稍後再試');
     document.getElementById('ov-loading').classList.remove('show');
   }
 }
